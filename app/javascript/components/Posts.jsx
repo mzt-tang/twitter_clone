@@ -1,20 +1,18 @@
 import React from "react";
 
+import Post from "./Post";
+
 const Posts = () => {
-  return (
-    <div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
-    <div className="jumbotron jumbotron-fluid bg-transparent">
-      <div className="container secondary-color">
-        <h1 className="display-4">Food Recipes</h1>
-        <p className="lead">
-          A curated list of recipes for the best homemade meal and delicacies.
-        </p>
-        <hr className="my-4" />
-      </div>
-    </div>
-  </div>
+  const test = ["tweet1", "tweet2", "tweet3", "tweet4", "tweet5"];
+  const listPosts = test.map((post) =>
+    <li><Post tweet={post}/></li>
   );
-  
+    return (
+      <div>
+        <h1>Posts</h1>
+        {listPosts}
+      </div>
+    );
   };
 
 export default Posts;
