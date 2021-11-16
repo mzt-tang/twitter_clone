@@ -1,10 +1,10 @@
 import React from "react";
 
-const Post = props => {
+const Post = ({post}) => {
 
-    return (
-        <li>{props.tweet}</li>
-    );
-  };
+  return (
+      <>{post.tweet}</>
+  );
+};
 
 export default Post;
