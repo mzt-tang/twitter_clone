@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import Post from "./Post";
 
-const Posts = props => {
+const Posts = () => {
   const [posts, setPosts] = useState([]);
 
   // Fetchs the posts
@@ -16,7 +17,7 @@ const Posts = props => {
         throw new Error("Network response was not ok.");
       }})
       .then(response => {
-        setPosts((current) => [...current, ...response]);
+        setPosts(response);
       })
     }, [])
 
@@ -24,6 +25,7 @@ const Posts = props => {
       <div>
         <h1>Posts</h1>
         <ul>{posts.map((post) => <li key={post.id}><Post post={post}/></li>)}</ul>
+        <Link to="create-post">create post</Link>
       </div>
     );
   };

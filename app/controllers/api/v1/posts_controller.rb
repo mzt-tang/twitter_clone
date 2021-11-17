@@ -29,7 +29,7 @@ class Api::V1::PostsController < ApplicationController
   private
 
   def post_params
-    params.permit(:tweet)
+    params.require(:post).permit(:tweet)
   end
 
   def post
