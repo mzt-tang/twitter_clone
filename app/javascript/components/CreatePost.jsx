@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 
 const CreatePost = () => {
     const [post, setPost] = useState("");
 
     const submitPost = () => {
+        // Todo: add a toast or alert for tweet being too short or long!
+        if (post.length === 0 || post.length > 500) {
+            return;
+        }
+
         const url = "/api/v1/posts/create";
         const token = document.querySelector('meta[name="csrf-token"]').content;
-        console.log("test")
         fetch(url, { method: 'POST', headers: { "X-CSRF-Token": token, 'Content-Type': 'application/json'}, body: JSON.stringify({tweet: post})})
-        .then(response => {
-            if (response.ok) {
-                // return response.json();
-            }
-        })
-        // todo need to change so that it doesn't redirect if invalid tweet text.
+
         window.location.href="/";
     }
 
@@ -26,7 +24,7 @@ const CreatePost = () => {
             </div>
             <div>
                 <Link to="/">back to all posts</Link>
-                <Button onClick={submitPost} >post</Button>
+                <button class="btn btn-primary" onClick={submitPost} >post</button>
             </div>
         </div>
     );
