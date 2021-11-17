@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Posts from '../components/Posts';
+import App from '../App';
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Posts/>,
+    <App />,
     document.body.appendChild(document.createElement('div')),
   )
 })
