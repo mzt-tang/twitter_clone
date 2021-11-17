@@ -22,10 +22,17 @@ const Posts = () => {
     }, [])
 
     return (
-      <div>
-        <h1>Posts</h1>
-        <ul>{posts.map((post) => <li key={post.id}><Post post={post}/></li>)}</ul>
-        <Link to="create-post">create post</Link>
+      <div class="container">
+        <div class="row">
+          <h1 class="display-1">Posts</h1>
+        </div>
+        <div class="row list-group">
+          <ul>{posts.map((post) => <li class="list-group-item" key={post.id}><Post post={post}/></li>)}</ul>
+        </div>
+        <div class="row">
+          
+          <Link to="create-post">create post</Link>
+        </div>
       </div>
     );
   };
