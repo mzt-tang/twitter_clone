@@ -24,6 +24,7 @@ const Posts = props => {
       <div>
         <h1>Posts</h1>
         <ul>{posts.map((post) => <li key={post.id}><Post post={post}/></li>)}</ul>
+        <Link to="create-post">create post</Link>
       </div>
     );
   };
