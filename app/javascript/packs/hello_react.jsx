@@ -11,4 +11,3 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 // Testing branch protection rule comment!
-// Testing branch protection rule comment!
