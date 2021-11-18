@@ -1,10 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from "react";
 
 import Post from "./Post";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
+  const [post, setPost] = useState("");
+  const [reload, setReload] = useState(false);
+  
+  const submitPost = () => {
+      // Todo: add a toast or alert for tweet being too short or long!
+      if (post.length === 0 || post.length > 500) {
+          return;
+      }
+
+      const url = "/api/v1/posts/create";
+      const token = document.querySelector('meta[name="csrf-token"]').content;
+      fetch(url, { method: 'POST', headers: { "X-CSRF-Token": token, 'Content-Type': 'application/json'}, body: JSON.stringify({tweet: post})})
+
+      document.getElementById('post').value = "";
+      setPost("");
+      setReload(!reload);
+  }
 
   // Fetchs the posts
   useEffect(() => {
@@ -19,19 +35,25 @@ const Posts = () => {
       .then(response => {
         setPosts(response);
       })
-    }, [])
+    }, [reload]);
 
     return (
-      <div class="container">
-        <div class="row">
-          <h1 class="display-1">Posts</h1>
+      <div className="container">
+        <div className="row">
+          <h1 className="display-1">Posts</h1>
         </div>
-        <div class="row list-group">
-          <ul>{posts.map((post) => <li class="list-group-item" key={post.id}><Post post={post}/></li>)}</ul>
+        <div className="row">
+            <div>
+                <textarea id="post" name="post" rows="6" required onChange={(e) => setPost(e.target.value)}/>
+            </div>
+            <div>
+                <button className="btn btn-primary" onClick={submitPost} >post</button>
+            </div>
         </div>
-        <div class="row">
-          
-          <Link to="create-post">create post</Link>
+        <div className="row list-group">
+          <ul>{posts.map((post) => <li className="list-group-item" key={post.id}><Post post={post}/></li>)}</ul>
+        </div>
+        <div className="row">
         </div>
       </div>
     );
