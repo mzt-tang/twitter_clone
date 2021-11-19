@@ -1,5 +1,3 @@
-9.times do |i|
-    Post.create(
-      tweet: "Post #{i + 1}",
-    )
-  end
+2.times do |i|
+  User.create(email: "user-#{i+1}@example.com", password: "password", password_confirmation: "password")
+end
