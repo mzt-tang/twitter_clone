@@ -11,10 +11,8 @@ Rails.application.routes.draw do
   # get '/*path' => 'posts#index'
   
   devise_for :users
-  get 'authentication/login'
-  get '/app', to: 'authentication#app', as: 'app'
 
-  root 'authentication#login'
+  root 'authentication#app'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

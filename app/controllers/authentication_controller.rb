@@ -1,8 +1,5 @@
 class AuthenticationController < ApplicationController
-  before_action :authenticate_user!, only: [:app]
-  def login!
-  end
-
-  def app
+  before_action :authenticate_user!, except: [:app!]
+  def app!
   end
 end
