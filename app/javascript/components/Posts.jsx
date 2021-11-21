@@ -72,7 +72,9 @@ const Posts = () => {
         <div className="col d-grid">
           <div className="position-relative">
             <textarea className="form-control" placeholder="What's happening?" id="post" style={{ resize: "none", height: "140px" }} required onChange={(e) => setCurrentPost(e.target.value)} />
-            <span className={`position-absolute badge rounded-pill ${(500 - currentPost.length < 0) ? "bg-danger" : "bg-secondary"}`} style={{ bottom: "8px", right: "16px" }}>{500 - currentPost.length}</span>
+            <span className={`position-absolute badge rounded-pill ${(500 - currentPost.length < 0) ? "bg-danger" : "bg-secondary"}`} style={{ bottom: "8px", right: "16px" }}>
+              {500 - currentPost.length}
+            </span>
           </div>
           <button className="btn btn-primary" onClick={submitPost} >Tweet</button>
         </div>

@@ -7,7 +7,9 @@ import React from "react";
 const Post = ({post}) => {
 
   return (
-      <>{post.tweet}</>
+      <p style={{ overflowWrap: "break-word" }}>
+        {post.tweet}
+      </p>
   );
 };
 
