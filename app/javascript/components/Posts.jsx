@@ -8,6 +8,8 @@ const Posts = () => {
   const [reload, setReload] = useState(false); // A hook for activating the useEffect hook to update the index of posts
   const [postNotifToast, setPostNotifToast] = useState(""); // The message of the toasts that this page displays
 
+  const postMaxLength = 500; // Maximum length that a tweet can be
+
   const submitPost = () => {
     const toast = new bootstrap.Toast(document.getElementById('postToast'));
     
@@ -37,7 +39,7 @@ const Posts = () => {
       return false
     }
 
-    if (currentPost.length > 500) {
+    if (currentPost.length > postMaxLength) {
       setPostNotifToast("Tweet must be under 500 characters!")
       toast.show()
       return false
@@ -72,8 +74,8 @@ const Posts = () => {
         <div className="col d-grid">
           <div className="position-relative">
             <textarea className="form-control" placeholder="What's happening?" id="post" style={{ resize: "none", height: "140px" }} required onChange={(e) => setCurrentPost(e.target.value)} />
-            <span className={`position-absolute badge rounded-pill ${(500 - currentPost.length < 0) ? "bg-danger" : "bg-secondary"}`} style={{ bottom: "8px", right: "16px" }}>
-              {500 - currentPost.length}
+            <span className={`position-absolute badge rounded-pill ${(postMaxLength - currentPost.length < 0) ? "bg-danger" : "bg-secondary"}`} style={{ bottom: "8px", right: "16px" }}>
+              {postMaxLength - currentPost.length}
             </span>
           </div>
           <button className="btn btn-primary" onClick={submitPost} >Tweet</button>
