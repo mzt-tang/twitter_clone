@@ -71,7 +71,7 @@ const Posts = () => {
       </div>
       
       <div className="row">
-        <div className="col d-grid">
+        <div className="col d-grid">  
           <div className="position-relative">
             <textarea className="form-control" placeholder="What's happening?" id="post" style={{ resize: "none", height: "140px" }} required onChange={(e) => setCurrentPost(e.target.value)} />
             <span className={`position-absolute badge rounded-pill ${(postMaxLength - currentPost.length < 0) ? "bg-danger" : "bg-secondary"}`} style={{ bottom: "8px", right: "16px" }}>
