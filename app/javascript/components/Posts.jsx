@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Button, List, ListItem, Divider } from "@mui/material";
 
 import Post from "./Post";
 
@@ -83,7 +84,15 @@ const Posts = () => {
       </div>
 
       <div className="row list-group">
-        <ul>{allPosts.map((post) => <li className="list-group-item" key={post.id}><Post post={post} /></li>)}</ul>
+        
+        
+        
+        <List>{allPosts.map((post) => 
+        <div key={post.id}>
+          <Post post={post} />
+        </div>
+        )}
+        </List>
       </div>
       
       <div className="position-fixed top-0 end-0 p-3">
