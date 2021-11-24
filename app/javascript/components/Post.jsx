@@ -1,5 +1,5 @@
 import React from "react";
-import { ListItem, ListItemAvatar, ListItemText, Avatar, IconButton, Divider } from "@mui/material";
+import { ListItem, ListItemAvatar, ListItemText, Avatar, IconButton, Divider, Grid } from "@mui/material";
 import { green } from '@mui/material/colors';
 import FolderIcon from '@mui/icons-material/Folder';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -15,25 +15,21 @@ const Post = ({post}) => {
   return (
     <>
       <ListItem secondaryAction={
-        <>
-        <div>
+        <Grid container spacing={0}>
           <IconButton edge="end" aria-label="reply">
-            <ReplyIcon />
-          </IconButton>
-        </div>
-        <div>
+              <ReplyIcon />
+            </IconButton>
           <IconButton edge="end" aria-label="like">
             <ThumbUpIcon />
           </IconButton>
-        </div>
-        </>
+        </Grid>
       }>
         <ListItemAvatar>
           <Avatar sx={{ bgcolor: green[500]}}>
             <FolderIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText style={{ overflowWrap: "break-word" }} primary="Name" secondary={post.tweet}/>
+        <ListItemText style={{ overflowWrap: "break-word", maxWidth: 1000}} primary="Name" secondary={post.tweet}/>
       </ListItem>
       <Divider component="li" />
     </>
