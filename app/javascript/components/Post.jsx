@@ -14,23 +14,28 @@ const Post = ({post}) => {
 
   return (
     <>
-      <ListItem secondaryAction={
-        <Grid container spacing={0}>
-          <IconButton edge="end" aria-label="reply">
-              <ReplyIcon />
+      <div className="flexContainer">
+        <div className="flexItem" style={{background: "hotpink", flex: 2}}>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar sx={{ bgcolor: green[500]}}>
+                <FolderIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText style={{ overflowWrap: "break-word"}} primary="Name" secondary={post.tweet}/>
+          </ListItem>
+        </div>
+        <div className="flexItem position-relative" style={{background: "gold", flex: 1}}>
+            <p className="position-absolute top-0 start-0" style={{ }}>33</p>
+            <IconButton className="position-absolute top-0 end-0" style={{ }} aria-label="reply">
+                <ReplyIcon />
             </IconButton>
-          <IconButton edge="end" aria-label="like">
-            <ThumbUpIcon />
-          </IconButton>
-        </Grid>
-      }>
-        <ListItemAvatar>
-          <Avatar sx={{ bgcolor: green[500]}}>
-            <FolderIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText style={{ overflowWrap: "break-word", maxWidth: 1000}} primary="Name" secondary={post.tweet}/>
-      </ListItem>
+            <p className="position-absolute bottom-0 start-0" style={{  }}>42</p>
+            <IconButton className="position-absolute bottom-0 end-0" style={{ bottom: "10px" }} aria-label="like">
+              <ThumbUpIcon style={{ }} />
+            </IconButton>
+        </div>
+      </div>
       <Divider component="li" />
     </>
   );
