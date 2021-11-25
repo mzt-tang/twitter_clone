@@ -5,7 +5,8 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def create
-    post = Post.create!(post_params)
+    # post = Post.create!(post_params)
+    post = current_user.posts.create!(post_params);
     if post
       render json: post
     else
