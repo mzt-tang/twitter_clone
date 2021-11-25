@@ -16,7 +16,7 @@ const Posts = () => {
     if (!checkPostPreconditions(toast)) return
 
     fetch(
-      "/api/v1/posts/create",
+      "/api/v1/posts",
       { method: 'POST', headers: {
         "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
         'Content-Type': 'application/json' },
@@ -50,7 +50,7 @@ const Posts = () => {
 
   // Fetchs the posts
   useEffect(() => {
-    const url = "/api/v1/posts/index.json";
+    const url = "/api/v1/posts";
     fetch(url)
       .then(response => {
         if (response.ok) {

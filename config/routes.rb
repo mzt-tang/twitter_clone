@@ -1,14 +1,9 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      get 'posts/index'
-      post 'posts/create'
-      get '/show/:id', to: 'posts#show'
-      delete '/destroy/:id', to: 'posts#destroy'
+      resources :posts, only: [:index, :create, :show, :destroy]
     end
   end
-  # root 'posts#index'
-  # get '/*path' => 'posts#index'
   
   devise_for :users
 
