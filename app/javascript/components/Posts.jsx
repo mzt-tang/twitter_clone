@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import fetchWithHeaders from '../util/fetchWithHeaders';
 import Post from "./Post";
 
 const Posts = () => {
@@ -15,11 +15,9 @@ const Posts = () => {
     
     if (!checkPostPreconditions(toast)) return
 
-    fetch(
-      "/api/v1/posts",
-      { method: 'POST', headers: {
-        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
-        'Content-Type': 'application/json' },
+    fetchWithHeaders(
+      "/api/v2/posts",
+      { method: 'POST',
         body: JSON.stringify({ tweet: currentPost })
     })
 
@@ -50,8 +48,7 @@ const Posts = () => {
 
   // Fetchs the posts
   useEffect(() => {
-    const url = "/api/v1/posts";
-    fetch(url)
+    fetch("/api/v2/posts")
       .then(response => {
         if (response.ok) {
           return response.json();
