@@ -1,5 +1,5 @@
-const fetchWithHeaders = (url, { headers = {}, ...options } = {}) => 
-  fetch(url, {
+const fetchWithHeaders = async (url, { headers = {}, ...options } = {}) => 
+  await fetch(url, {
     headers: {
       'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
       'Content-Type': 'application/json',
@@ -9,7 +9,12 @@ const fetchWithHeaders = (url, { headers = {}, ...options } = {}) =>
   })
   .then((response) => {
     if (response.ok) {
-      return response.json();
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        return response.json();
+      } else {
+        return;
+      }
     } else {
       throw new Error(response.statusText)
     }

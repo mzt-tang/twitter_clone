@@ -22,7 +22,7 @@ class Api::V2::PostsController < ApplicationController
   end
 
   def destroy
-    post&.destroy
+    post.destroy
     render json: { message: 'Post deleted!' }
   end
 

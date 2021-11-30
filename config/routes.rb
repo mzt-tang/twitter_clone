@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v2 do
       resources :posts, only: [:index, :create, :show, :destroy] do
-        resources :likes, only: [:index, :create, :show, :destroy]
+        resources :likes, only: [:index, :create, :show] do
+          collection do
+            delete 'unlike'
+          end
+        end
       end
     end
   end

@@ -3,11 +3,7 @@ class Post < ApplicationRecord
 
     belongs_to :user
     has_many :likes, dependent: :destroy
-    has_many :users_who_liked, through: :likes, source: :user
-
-    def likes_id
-        Like.where(user_id: current_user.id, post_id: params[:post_id])
-    end
+    has_many :users_who_liked, through: :likes, source: :user 
 
     def as_json(*args)
         super.merge(likes: likes_count)

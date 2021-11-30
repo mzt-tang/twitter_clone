@@ -22,18 +22,10 @@ class Api::V2::LikesController < ApplicationController
     @like = find_like
     render json: @like
   end
-
-  def destroy
-    # @like = find_like 
-
-    # if already_liked?
-    #   @like&.destroy
-    # end
-  end
-
+  
   def unlike
     if already_liked?
-      Like.where(user_id: current_user.id, post_id: params[:post_id])&.destroy
+      Like.where(user_id: current_user.id, post_id: params[:post_id]).destroy_all
     end
   end
 

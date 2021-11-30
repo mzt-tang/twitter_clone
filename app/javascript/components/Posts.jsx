@@ -5,17 +5,17 @@ import Post from "./Post";
 const Posts = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [currentPost, setCurrentPost] = useState("");
-  const [reload, setReload] = useState(false); // A hook for activating the useEffect hook to update the index of posts
   const [postNotifToast, setPostNotifToast] = useState(""); // The message of the toasts that this page displays
+  const [reload, setReload] = useState(false);
 
   const postMaxLength = 500; // Maximum length that a tweet can be
 
-  const submitPost = () => {
+  const submitPost = async () => {
     const toast = new bootstrap.Toast(document.getElementById('postToast'));
     
-    if (!checkPostPreconditions(toast)) return
+    if (!checkPostPreconditions(toast)) return;
 
-    fetchWithHeaders(
+    await fetchWithHeaders(
       "/api/v2/posts",
       { method: 'POST',
         body: JSON.stringify({ tweet: currentPost })
@@ -27,7 +27,7 @@ const Posts = () => {
     setPostNotifToast("Tweeted!")
     toast.show()
     
-    setReload(!reload) // Trigger useEffect to update all posts
+    fetchAllPosts();
   }
 
   const checkPostPreconditions = (toast) => {
@@ -46,20 +46,19 @@ const Posts = () => {
     return true
   }
 
-  // Fetchs the posts
-  useEffect(() => {
-    fetch("/api/v2/posts")
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Network response was not ok.");
-        }
-      })
+  const fetchAllPosts = async () => {
+      await fetchWithHeaders(
+        "/api/v2/posts")
       .then(response => {
         setAllPosts(response);
-      })
-  }, [reload]);
+      });
+      setReload(!reload);
+  }
+
+  // Fetchs the posts
+  useEffect(() => {
+    fetchAllPosts();
+  }, []);
 
   return (
     <div className="container">
@@ -80,7 +79,7 @@ const Posts = () => {
       </div>
 
       <div className="row list-group">
-        <ul>{allPosts.map((post) => <li className="list-group-item" key={post.id}><Post post={post} /></li>)}</ul>
+        <ul>{allPosts.map((post) => <li className="list-group-item" key={post.id}><Post post={post} fetchAllPosts={fetchAllPosts} /></li>)}</ul>
       </div>
       
       <div className="position-fixed top-0 end-0 p-3">

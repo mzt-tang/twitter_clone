@@ -1,32 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, {  } from "react";
 import fetchWithHeaders from '../util/fetchWithHeaders';
 
 /**
  * @param {post} the post object, containing just a tweet for now. 
- * @returns 
+ * @returns .
  */
-const Post = ({post}) => {
-  const [reload, setReload] = useState(false);
-  const [likeID, setLikeID] = useState('');
+const Post = ({post, fetchAllPosts}) => {
 
-  const likePost = () => {
+  const toggleLikePost = async () => {
     if (post.likes_count === 1) {
-      fetchWithHeaders(
-        `/api/v2/posts/${post.id}/likes/${likeID}`,
-        { method: 'DELETE' }
-      ).catch((e) => {
-        alert(e.message)
-      })
-
-
-      fetchWithHeaders(
-        `/api/v2/posts/${post.id}/likes/${likeID}`,
+      await fetchWithHeaders(
+        `/api/v2/posts/${post.id}/likes/unlike`,
         { method: 'DELETE' }
       ).catch((e) => {
         alert(e.message)
       })
     } else {
-      fetchWithHeaders(
+      await fetchWithHeaders(
         `/api/v2/posts/${post.id}/likes`,
         { method: 'POST' }
       ).catch((e) => {
@@ -34,7 +24,7 @@ const Post = ({post}) => {
       })
     }
 
-    setReload(!reload);
+    fetchAllPosts();
   }
 
   return (
@@ -43,8 +33,8 @@ const Post = ({post}) => {
         {post.tweet}
       </p>
       <div>
-        <button className="btn btn-success" onClick={likePost}>like</button>
-        <p>{post.likes}</p>
+        <button className="btn btn-success" onClick={toggleLikePost}>like</button>
+        <p>{post.likes_count}</p>
       </div>
     </>
   );
