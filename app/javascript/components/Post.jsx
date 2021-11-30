@@ -1,4 +1,4 @@
-import React, {  } from "react";
+import React, { useState } from "react";
 import fetchWithHeaders from '../util/fetchWithHeaders';
 
 /**
@@ -6,6 +6,7 @@ import fetchWithHeaders from '../util/fetchWithHeaders';
  * @returns .
  */
 const Post = ({post, fetchAllPosts}) => {
+  const [reply, setReply] = useState('');
 
   const toggleLikePost = async () => {
     if (post.likes_count === 1) {
@@ -33,8 +34,12 @@ const Post = ({post, fetchAllPosts}) => {
         {post.tweet}
       </p>
       <div>
-        <button className="btn btn-success" onClick={toggleLikePost}>like</button>
+        <button className={`${(post.likes_count === 1) ? "btn btn-primary btn-sm" : "btn btn-outline-dark btn-sm"}`} onClick={toggleLikePost}>like</button>
         <p>{post.likes_count}</p>
+      </div>
+      <div>
+        <textarea className="form-control" id="post" style={{ resize: "none", height: "80px" }} required onChange={(e) => setReply(e.target.value)} />
+        <button className="btn btn-success btn-sm">submit post</button>
       </div>
     </>
   );

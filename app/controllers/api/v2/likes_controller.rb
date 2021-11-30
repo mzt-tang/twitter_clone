@@ -1,6 +1,6 @@
 class Api::V2::LikesController < ApplicationController
   before_action :find_post
-  before_action :find_like, only: [:destroy]
+  before_action :find_like, only: [:show]
 
   def index
     likes = @post.likes
@@ -15,11 +15,9 @@ class Api::V2::LikesController < ApplicationController
     else
       render json: { error: @like.errors.full_messages.to_sentence }, status: :unprocessable_entity
     end
-    # redirect_to post_path(@post)
   end
 
   def show
-    @like = find_like
     render json: @like
   end
   
@@ -31,14 +29,14 @@ class Api::V2::LikesController < ApplicationController
 
   private
 
-  def find_like
-    @like = @post.likes.find(params[:id])
-  end
-
   def already_liked?
     Like.where(user_id: current_user.id, post_id: params[:post_id]).exists?
   end
 
+  def find_like
+    @like = @post.likes.find(params[:id])
+  end
+  
   def find_post
     @post = Post.find(params[:post_id])
   end

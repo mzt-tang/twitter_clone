@@ -7,6 +7,9 @@ Rails.application.routes.draw do
             delete 'unlike'
           end
         end
+        resources :replies, only: [:index, :create, :show, :destroy] do
+          
+        end
       end
     end
   end
