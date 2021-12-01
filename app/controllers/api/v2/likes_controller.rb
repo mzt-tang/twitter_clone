@@ -8,6 +8,10 @@ class Api::V2::LikesController < ApplicationController
   end
 
   def create
+    if @post.user = current_user
+      return
+    end
+
     @like = @post.likes.create(user_id: current_user.id)
 
     if @like.valid?

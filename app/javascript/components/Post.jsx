@@ -43,7 +43,6 @@ const Post = ({post, fetchAllPosts}) => {
     }, []);
 
   const submitReply = async () => {
-
     await fetchWithHeaders(
       `/api/v2/posts/${post.id}/replies`,
       { method: 'POST',
