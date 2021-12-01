@@ -1,7 +1,8 @@
 class Api::V2::PostsController < ApplicationController
   def index
     post = Post.all.order(created_at: :desc)
-    render json: current_user.posts.order(created_at: :desc)
+    render json: post
+    # current_user.posts.order(created_at: :desc)
   end
 
   def create

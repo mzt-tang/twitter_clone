@@ -6,7 +6,6 @@ const Posts = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [currentPost, setCurrentPost] = useState("");
   const [postNotifToast, setPostNotifToast] = useState(""); // The message of the toasts that this page displays
-  const [reload, setReload] = useState(false);
 
   const postMaxLength = 500; // Maximum length that a tweet can be
 
@@ -52,7 +51,6 @@ const Posts = () => {
       .then(response => {
         setAllPosts(response);
       });
-      setReload(!reload);
   }
 
   // Fetchs the posts

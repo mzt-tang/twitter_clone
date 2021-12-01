@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import fetchWithHeaders from '../util/fetchWithHeaders';
+import ReplyModal from './ReplyModal'
 
 /**
  * @param {post} the post object, containing just a tweet for now. 
@@ -66,6 +67,7 @@ const Post = ({post, fetchAllPosts}) => {
         <ul>{allReplies.map((reply) => <li className="list-group-item" key={reply.id}>{reply.comment}</li>)}</ul>
         <textarea className="form-control" id="post" style={{ resize: "none", height: "80px" }} required onChange={(e) => setCurrentReply(e.target.value)} />
         <button className="btn btn-success btn-sm" onClick={submitReply}>reply</button>
+        <ReplyModal/>
       </div>
     </>
   );
