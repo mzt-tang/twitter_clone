@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import fetchWithHeaders from '../util/fetchWithHeaders';
 
 /**
@@ -6,7 +6,8 @@ import fetchWithHeaders from '../util/fetchWithHeaders';
  * @returns .
  */
 const Post = ({post, fetchAllPosts}) => {
-  const [reply, setReply] = useState('');
+  const [allReplies, setAllReplies] = useState([]);
+  const [currentReply, setCurrentReply] = useState('');
 
   const toggleLikePost = async () => {
     if (post.likes_count === 1) {
@@ -28,6 +29,31 @@ const Post = ({post, fetchAllPosts}) => {
     fetchAllPosts();
   }
 
+    const fetchAllReplies = async () => {
+      await fetchWithHeaders(
+        `/api/v2/posts/${post.id}/replies`)
+      .then(response => {
+        setAllReplies(response);
+      });
+    }
+
+    // Fetchs the posts
+    useEffect(() => {
+      fetchAllReplies();
+    }, []);
+
+  const submitReply = async () => {
+
+    await fetchWithHeaders(
+      `/api/v2/posts/${post.id}/replies`,
+      { method: 'POST',
+        body: JSON.stringify({ post_id: post.id, comment: currentReply })
+    })
+
+    //document.getElementById('post').value = "";
+    //setCurrentPost("");
+  }
+
   return (
     <>
       <p style={{ overflowWrap: "break-word" }}>
@@ -37,9 +63,10 @@ const Post = ({post, fetchAllPosts}) => {
         <button className={`${(post.likes_count === 1) ? "btn btn-primary btn-sm" : "btn btn-outline-dark btn-sm"}`} onClick={toggleLikePost}>like</button>
         <p>{post.likes_count}</p>
       </div>
-      <div>
-        <textarea className="form-control" id="post" style={{ resize: "none", height: "80px" }} required onChange={(e) => setReply(e.target.value)} />
-        <button className="btn btn-success btn-sm">submit post</button>
+      <div className="listGroup">
+        <ul>{allReplies.map((reply) => <li className="list-group-item" key={reply.id}>{reply.comment}</li>)}</ul>
+        <textarea className="form-control" id="post" style={{ resize: "none", height: "80px" }} required onChange={(e) => setCurrentReply(e.target.value)} />
+        <button className="btn btn-success btn-sm" onClick={submitReply}>reply</button>
       </div>
     </>
   );

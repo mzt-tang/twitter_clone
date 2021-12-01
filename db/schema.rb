@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_30_023316) do
+ActiveRecord::Schema.define(version: 2021_11_30_203211) do
 
   create_table "likes", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -37,6 +37,9 @@ ActiveRecord::Schema.define(version: 2021_11_30_023316) do
   create_table "replies", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "post_id", null: false
+    t.text "comment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_replies_on_post_id"
     t.index ["user_id"], name: "index_replies_on_user_id"
   end

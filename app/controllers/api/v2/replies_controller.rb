@@ -7,8 +7,8 @@ class Api::V2::RepliesController < ApplicationController
     render json: replies
   end
 
-  def createx
-    @reply = @post.replies.create(user_id: current_user.id)
+  def create
+    @reply = current_user.replies.create(reply_params)
 
     if @reply.valid?
       render json: @reply
@@ -29,5 +29,9 @@ class Api::V2::RepliesController < ApplicationController
 
   def find_post
     @post = Post.find(params[:post_id])
+  end
+
+  def reply_params
+    params.require(:reply).permit(:post_id, :comment)
   end
 end
