@@ -50,3 +50,7 @@ gem 'bootstrap', '~> 5.1.3'
 
 # devise
 gem 'devise'
+
+source "https://rubygems.pkg.github.com/optimalworkshop" do
+  gem 'optimal-components', '~> 0.13.11'
+end

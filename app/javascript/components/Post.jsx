@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { IconButton } from "@mui/material";
+import {ThumbUp} from '@mui/icons-material/';
 import fetchWithHeaders from '../util/fetchWithHeaders';
+import ReactMarkdown from 'react-markdown'
 import ReplyModal from './ReplyModal'
 
 /**
@@ -30,18 +33,18 @@ const Post = ({post, fetchAllPosts}) => {
     fetchAllPosts();
   }
 
-    const fetchAllReplies = async () => {
-      await fetchWithHeaders(
-        `/api/v2/posts/${post.id}/replies`)
-      .then(response => {
-        setAllReplies(response);
-      });
-    }
+  const fetchAllReplies = async () => {
+    await fetchWithHeaders(
+     `/api/v2/posts/${post.id}/replies`)
+   .then(response => {       
+     setAllReplies(response);
+    });
+  }
 
-    // Fetchs the posts
-    useEffect(() => {
-      fetchAllReplies();
-    }, []);
+  // Fetchs the posts
+  useEffect(() => {
+    fetchAllReplies();
+  }, []);
 
   const submitReply = async () => {
     await fetchWithHeaders(
@@ -50,24 +53,42 @@ const Post = ({post, fetchAllPosts}) => {
         body: JSON.stringify({ post_id: post.id, comment: currentReply })
     })
 
-    //document.getElementById('post').value = "";
-    //setCurrentPost("");
+    setCurrentReply("");
+    
+    fetchAllReplies();
   }
+
+  // const alreadyLiked = () => {
+  //   return await fetchWithHeaders(
+  //     `/api/v2/posts/${post.id}/likes/`,
+  //     { method: 'GET' }
+  //   ).catch((e) => {
+  //     alert(e.message)
+  //   })
+  // }
 
   return (
     <>
-      <p style={{ overflowWrap: "break-word" }}>
+      <ReactMarkdown style={{ overflowWrap: "break-word" }}>
         {post.tweet}
-      </p>
+      </ReactMarkdown>
       <div>
-        <button className={`${(post.likes_count === 1) ? "btn btn-primary btn-sm" : "btn btn-outline-dark btn-sm"}`} onClick={toggleLikePost}>like</button>
         <p>{post.likes_count}</p>
+        <button className={`${(post.likes_count === 1) ? "btn btn-primary btn-sm" : "btn btn-outline-dark btn-sm"}`} onClick={toggleLikePost}>like</button>
+        <IconButton onClick={toggleLikePost}>
+          <ThumbUp/>
+        </IconButton>
+        <ReplyModal setCurrentReply={setCurrentReply} submitReply={submitReply}/>
       </div>
       <div className="listGroup">
-        <ul>{allReplies.map((reply) => <li className="list-group-item" key={reply.id}>{reply.comment}</li>)}</ul>
-        <textarea className="form-control" id="post" style={{ resize: "none", height: "80px" }} required onChange={(e) => setCurrentReply(e.target.value)} />
-        <button className="btn btn-success btn-sm" onClick={submitReply}>reply</button>
-        <ReplyModal/>
+        <ul>
+          {allReplies.map((reply) => 
+            <li className="list-group-item" key={reply.id}>
+              <ReactMarkdown>
+                {reply.comment}
+              </ReactMarkdown>
+            </li>)}
+          </ul>
       </div>
     </>
   );

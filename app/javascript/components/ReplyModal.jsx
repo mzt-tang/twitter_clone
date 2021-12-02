@@ -1,4 +1,4 @@
-import React, {  } from "react";
+import React from "react";
 import { Box, Modal, Typography, IconButton } from "@mui/material";
 import ReplyIcon from '@mui/icons-material/Reply';
 
@@ -14,10 +14,15 @@ const style = {
   p: 4,
 };
 
-const ReplyModal = () => {
+const ReplyModal = ({setCurrentReply, submitReply}) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const postComment = () => {
+    submitReply();
+    handleClose();
+  }
 
   return (
     <>
@@ -37,9 +42,9 @@ const ReplyModal = () => {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
           </Typography>
-          <textarea className="form-control" id="comment" style={{ resize: "none", height: "80px" }}/>
-          <button className="btn btn-primary btn-sm">comment</button>
-          <button className="btn btn-primary-outline btn-sm">comment</button>
+          <textarea className="form-control" id="comment" style={{ resize: "none", height: "80px" }} required onChange={(e) => setCurrentReply(e.target.value)}/>
+          <button className="btn btn-primary btn-sm" onClick={postComment}>comment</button>
+          <button className="btn btn-light btn-sm" onClick={handleClose}>cancel</button>
         </Box>
       </Modal>
     </>
