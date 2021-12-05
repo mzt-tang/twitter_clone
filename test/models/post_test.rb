@@ -12,7 +12,7 @@ class PostTest < ActiveSupport::TestCase
 
   test 'invalid without tweet' do
     @post.tweet = nil
-    refute @post.valid?, 'saved post without a tweet'
+    refute @post.valid?, 'saved post without a tweet' # don't use refute
     assert_not_nil @post.errors[:tweet], 'no validation error for tweet present'
   end
 
