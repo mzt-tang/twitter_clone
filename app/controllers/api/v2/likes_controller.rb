@@ -31,11 +31,15 @@ class Api::V2::LikesController < ApplicationController
     end
   end
 
-  def already_liked?
-    Like.where(user_id: current_user.id, post_id: params[:post_id]).exists?
+  def liked
+    render json: already_liked?
   end
   
   private
+  
+  def already_liked?
+    Like.where(user_id: current_user.id, post_id: params[:post_id]).exists?
+  end
 
   def find_like
     @like = @post.likes.find(params[:id])

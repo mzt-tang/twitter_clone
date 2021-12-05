@@ -5,7 +5,7 @@ Rails.application.routes.draw do
         resources :likes, only: [:index, :create, :show] do
           collection do
             delete 'unlike'
-            get 'already_liked' => '#already_liked?'
+            get 'liked'
           end
         end
         resources :replies, only: [:index, :create, :show, :destroy] do

@@ -14,7 +14,7 @@ const Post = ({post, fetchAllPosts}) => {
   const [currentReply, setCurrentReply] = useState('');
 
   const toggleLikePost = async () => {
-    if (post.likes_count === 1) {
+    if (await alreadyLiked()) {
       await fetchWithHeaders(
         `/api/v2/posts/${post.id}/likes/unlike`,
         { method: 'DELETE' }
@@ -58,14 +58,14 @@ const Post = ({post, fetchAllPosts}) => {
     fetchAllReplies();
   }
 
-  // const alreadyLiked = () => {
-  //   return await fetchWithHeaders(
-  //     `/api/v2/posts/${post.id}/likes/`,
-  //     { method: 'GET' }
-  //   ).catch((e) => {
-  //     alert(e.message)
-  //   })
-  // }
+  const alreadyLiked = async () => {
+    return await fetchWithHeaders(
+      `/api/v2/posts/${post.id}/likes/liked`,
+      { method: 'GET' }
+    ).catch((e) => {
+      alert(e.message)
+    })
+  }
 
   return (
     <>
@@ -74,7 +74,6 @@ const Post = ({post, fetchAllPosts}) => {
       </ReactMarkdown>
       <div>
         <p>{post.likes_count}</p>
-        <button className={`${(post.likes_count === 1) ? "btn btn-primary btn-sm" : "btn btn-outline-dark btn-sm"}`} onClick={toggleLikePost}>like</button>
         <IconButton onClick={toggleLikePost}>
           <ThumbUp/>
         </IconButton>
