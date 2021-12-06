@@ -1,0 +1,33 @@
+.navbar {
+  justify-content: space-between;
+  padding: 10px 15px;
+}
+
+.display-flex {
+  display: flex;
+
+  &--wrap {
+    flex-wrap: wrap;
+  }
+}
+
+.display-grid {
+  display: flex;
+  grid-gap: 10%;
+
+  &--column {
+    grid-auto-flow: column;
+  }
+}
+
+.list-unstyled {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.title {
+  font-size: large;
+  position: relative;
+  bottom: 2px;
+}

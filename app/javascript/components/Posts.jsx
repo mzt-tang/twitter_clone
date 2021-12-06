@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { Heading } from "@optimalworkshop/optimal-components";
+
 import fetchWithHeaders from '../util/fetchWithHeaders';
 import Post from "./Post";
-import { IconProvider, Icon } from "@optimalworkshop/optimal-components";
 
 const Posts = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -62,9 +63,11 @@ const Posts = () => {
   return (
     <div className="container">
       <div className="row">
+        <Heading level={1}>Posts</Heading>
+      </div>
+
+      <div className="row">
         <h1 className="display-1">Posts</h1>
-        <IconProvider />
-        <Icon name="action/settings" />
       </div>
       
       <div className="row">
