@@ -1,6 +1,5 @@
-import React from "react";
-import { Box, Modal, Typography, IconButton } from "@mui/material";
-import ReplyIcon from '@mui/icons-material/Reply';
+import React from 'react';
+import { Button, Modal, IconProvider } from '@optimalworkshop/optimal-components';
 
 const style = {
   position: 'absolute',
@@ -26,26 +25,18 @@ const ReplyModal = ({setCurrentReply, submitReply}) => {
 
   return (
     <>
-      <IconButton onClick={handleOpen}>
-        <ReplyIcon />
-      </IconButton>
+      <Button toolbar icon="action/comment" onClick={handleOpen} extra-small/>
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        title="Reply to tweet"
       >
-        <Box className="" alignItems="center" sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-          <textarea className="form-control" id="comment" style={{ resize: "none", height: "80px" }} required onChange={(e) => setCurrentReply(e.target.value)}/>
-          <button className="btn btn-primary btn-sm" onClick={postComment}>comment</button>
-          <button className="btn btn-light btn-sm" onClick={handleClose}>cancel</button>
-        </Box>
+        <Modal.Body>
+          <div className="text-area">
+            <textarea placeholder="What's happening?" id="post" required onChange={(e) => setCurrentReply(e.target.value)} />
+          </div>
+          <Button text="reply" onClick={postComment} />
+        </Modal.Body>
       </Modal>
     </>
   );

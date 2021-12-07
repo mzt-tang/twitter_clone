@@ -13,9 +13,9 @@ const Posts = () => {
   const postMaxLength = 500; // Maximum length that a tweet can be
 
   const submitPost = async () => {
-    const toast = new bootstrap.Toast(document.getElementById('postToast'));
+    // const toast = new bootstrap.Toast(document.getElementById('postToast'));
     
-    if (!checkPostPreconditions(toast)) return;
+    // if (!checkPostPreconditions(toast)) return;
 
     await fetchWithHeaders(
       "/api/v2/posts",
@@ -26,8 +26,8 @@ const Posts = () => {
     document.getElementById('post').value = "";
     setCurrentPost("");
 
-    setPostNotifToast("Tweeted!")
-    toast.show()
+    // setPostNotifToast("Tweeted!")
+    // toast.show()
     
     fetchAllPosts();
   }
@@ -76,12 +76,9 @@ const Posts = () => {
       <Button text="Tweet" onClick={submitPost} primary extra-small/>
 
       <div className="posts">
-        <ul className="list-unstyled">
-          {allPosts.map((post) =>
-          <li className="list-group-item" key={post.id}>
-            <Post post={post} fetchAllPosts={fetchAllPosts} />
-          </li>)}
-        </ul>
+        {allPosts.map((post) =>
+          <Post key={post.id} post={post} fetchAllPosts={fetchAllPosts} />
+        )}
       </div>
     </div>
 
