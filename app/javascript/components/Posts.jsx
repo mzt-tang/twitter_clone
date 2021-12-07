@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Heading } from "@optimalworkshop/optimal-components";
+import React, { useState, useEffect } from 'react';
+import { Button } from '@optimalworkshop/optimal-components'
 
 import fetchWithHeaders from '../util/fetchWithHeaders';
 import Post from "./Post";
+import "./posts.scss";
 
 const Posts = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -61,39 +62,54 @@ const Posts = () => {
   }, []);
 
   return (
+
+    // Post tweet text area + button
+
+    // Tweets (with likes and replies)
+
+    // Toasts?
+
     <div className="container">
-      <div className="row">
-        <Heading level={1}>Posts</Heading>
+      <div className="text-area">
+        <textarea placeholder="What's happening?" id="post" required onChange={(e) => setCurrentPost(e.target.value)} />
       </div>
+      <Button text="Tweet" onClick={submitPost} primary extra-small/>
 
-      <div className="row">
-        <h1 className="display-1">Posts</h1>
-      </div>
-      
-      <div className="row">
-        <div className="col d-grid">  
-          <div className="position-relative">
-            <textarea className="form-control" placeholder="What's happening?" id="post" style={{ resize: "none", height: "140px" }} required onChange={(e) => setCurrentPost(e.target.value)} />
-            <span className={`position-absolute badge rounded-pill ${(postMaxLength - currentPost.length < 0) ? "bg-danger" : "bg-secondary"}`} style={{ bottom: "8px", right: "16px" }}>
-              {postMaxLength - currentPost.length}
-            </span>
-          </div>
-          <button className="btn btn-primary" onClick={submitPost} >Tweet</button>
-        </div>
-      </div>
-
-      <div className="row list-group">
-        <ul>{allPosts.map((post) => <li className="list-group-item" key={post.id}><Post post={post} fetchAllPosts={fetchAllPosts} /></li>)}</ul>
-      </div>
-      
-      <div className="position-fixed top-0 end-0 p-3">
-        <div id="postToast" className="toast" role="alert" aria-live="assertive" aria-atomic="true">
-          <div className="toast-body">
-            {postNotifToast}
-          </div>
-        </div>
+      <div className="posts">
+        <ul className="list-unstyled">
+          {allPosts.map((post) =>
+          <li className="list-group-item" key={post.id}>
+            <Post post={post} fetchAllPosts={fetchAllPosts} />
+          </li>)}
+        </ul>
       </div>
     </div>
+
+      // <div className="container">
+      //   <div className="row">
+      //     <div className="col d-grid">  
+      //       <div className="position-relative">
+      //         <textarea className="form-control" placeholder="What's happening?" id="post" style={{ resize: "none", height: "140px" }} required onChange={(e) => setCurrentPost(e.target.value)} />
+      //         <span className={`position-absolute badge rounded-pill ${(postMaxLength - currentPost.length < 0) ? "bg-danger" : "bg-secondary"}`} style={{ bottom: "8px", right: "16px" }}>
+      //           {postMaxLength - currentPost.length}
+      //         </span>
+      //       </div>
+      //       <button className="btn btn-primary" onClick={submitPost} >Tweet</button>
+      //     </div>
+      //   </div>
+
+      //   <div className="row list-group">
+      //     <ul>{allPosts.map((post) => <li className="list-group-item" key={post.id}><Post post={post} fetchAllPosts={fetchAllPosts} /></li>)}</ul>
+      //   </div>
+        
+      //   <div className="position-fixed top-0 end-0 p-3">
+      //     <div id="postToast" className="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      //       <div className="toast-body">
+      //         {postNotifToast}
+      //       </div>
+      //     </div>
+      //   </div>
+      // </div>
   );
 };
 
