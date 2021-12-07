@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Button, IconProvider } from '@optimalworkshop/optimal-components';
+import { Button, IconProvider, Badge } from '@optimalworkshop/optimal-components';
 
 import ReplyModal from './ReplyModal';
 import fetchWithHeaders from '../util/fetchWithHeaders';
@@ -16,24 +16,17 @@ const Post = ({post, fetchAllPosts}) => {
   const [hasLiked, setHasLiked] = useState();
 
   const toggleLikePost = async () => {
+
     if (await alreadyLiked()) {
-      await fetchWithHeaders(
-        `/api/v2/posts/${post.id}/likes/unlike`,
-        { method: 'DELETE' }
-      ).catch((e) => {
-        alert(e.message)
-      })
+      await fetchWithHeaders(`/api/v2/posts/${post.id}/likes/unlike`, { method: 'DELETE' }).catch((e) => {alert(e.message)});
       setHasLiked(false);
     } else {
-      await fetchWithHeaders(
-        `/api/v2/posts/${post.id}/likes`,
-        { method: 'POST' }
-      ).catch((e) => {
-        alert(e.message)
-      })
-      setHasLiked(true);
+      // postLike = undefined if post belongs to current user.
+      const postLike = await fetchWithHeaders(`/api/v2/posts/${post.id}/likes`, { method: 'POST' }).catch((e) => {alert(e.message)});
+      if (postLike !== undefined) {
+        setHasLiked(true);
+      }
     }
-
     fetchAllPosts();
   }
 
@@ -99,11 +92,17 @@ const Post = ({post, fetchAllPosts}) => {
     // </>
 
     <div className="post-container">
-      <ReactMarkdown>{post.tweet}</ReactMarkdown>
+      <ReactMarkdown className="post">{post.tweet}</ReactMarkdown>
       <div className="icon-container">
         <IconProvider />
         <ReplyModal setCurrentReply={setCurrentReply} submitReply={submitReply}/>
+        <div className="post-counters-outer">
+          <Badge className="post-counters-inner" light small variant="branded">{allReplies.length}</Badge>
+        </div>
         { hasLiked ? <Button primary icon="face/happy" onClick={toggleLikePost} extra-small /> : <Button toolbar icon="face/happy" onClick={toggleLikePost} extra-small />}
+        <div className="post-counters-outer">
+          <Badge className="post-counters-inner" light small variant="branded">{post.likes_count}</Badge>
+        </div>
       </div>
     </div>
 
