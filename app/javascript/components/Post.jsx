@@ -68,40 +68,17 @@ const Post = ({post, fetchAllPosts}) => {
   }
 
   return (
-    // <>
-    //   <ReactMarkdown style={{ overflowWrap: "break-word" }}>
-    //     {post.tweet}
-    //   </ReactMarkdown>
-    //   <div>
-    //     <p>{post.likes_count}</p>
-    //     <IconButton onClick={toggleLikePost}>
-    //       <ThumbUp/>
-    //     </IconButton>
-    //     <ReplyModal setCurrentReply={setCurrentReply} submitReply={submitReply}/>
-    //   </div>
-    //   <div className="listGroup">
-    //     <ul>
-    //       {allReplies.map((reply) => 
-    //         <li className="list-group-item" key={reply.id}>
-    //           <ReactMarkdown>
-    //             {reply.comment}
-    //           </ReactMarkdown>
-    //         </li>)}
-    //       </ul>
-    //   </div>
-    // </>
-
     <div className="post-container">
       <ReactMarkdown className="post">{post.tweet}</ReactMarkdown>
       <div className="icon-container">
         <IconProvider />
-        <ReplyModal setCurrentReply={setCurrentReply} submitReply={submitReply}/>
+        <ReplyModal setCurrentReply={setCurrentReply} submitReply={submitReply} allReplies={allReplies} />
         <div className="post-counters-outer">
-          <Badge className="post-counters-inner" light small variant="branded">{allReplies.length}</Badge>
+          <Badge className="post-counters-inner" light small branded>{allReplies.length}</Badge>
         </div>
         { hasLiked ? <Button primary icon="face/happy" onClick={toggleLikePost} extra-small /> : <Button toolbar icon="face/happy" onClick={toggleLikePost} extra-small />}
         <div className="post-counters-outer">
-          <Badge className="post-counters-inner" light small variant="branded">{post.likes_count}</Badge>
+          <Badge className="post-counters-inner" light small branded>{post.likes_count}</Badge>
         </div>
       </div>
     </div>

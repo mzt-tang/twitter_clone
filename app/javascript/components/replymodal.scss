@@ -1,0 +1,19 @@
+.modal-body {
+  width: 80%;
+  margin: auto;
+}
+
+.modal-action-buttons {
+  position: relative;
+  left: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.text-area {
+  textarea {
+    resize: none;
+  }
+}

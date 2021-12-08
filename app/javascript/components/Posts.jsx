@@ -73,7 +73,10 @@ const Posts = () => {
       <div className="text-area">
         <textarea placeholder="What's happening?" id="post" required onChange={(e) => setCurrentPost(e.target.value)} />
       </div>
-      <Button text="Tweet" onClick={submitPost} primary extra-small/>
+
+      <div className="tweet-action-button">
+        <Button text="Tweet" onClick={submitPost} primary extra-small/>
+      </div> 
 
       <div className="posts">
         {allPosts.map((post) =>

@@ -1,6 +1,9 @@
+.container {
+  width: 80%;
+  margin: auto;
+}
+
 .text-area {
-
-
   textarea {
     margin-top: 10px;
     resize: none;
@@ -9,11 +12,7 @@
   }
 }
 
-.posts {
-  
-}
-
-.container {
-  width: 80%;
-  margin: auto;
+.tweet-action-button {
+  display: flex;
+  flex-direction: row;
 }

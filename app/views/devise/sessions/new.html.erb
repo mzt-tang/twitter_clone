@@ -21,6 +21,26 @@
   <div class="actions">
     <%= f.submit "Log in" %>
   </div>
+  
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Password</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% User.all.each do |user| %>
+          <tr>
+            <td><%= user.email %></td>
+            <td>password</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
 <% end %>
 
 <%= render "devise/shared/links" %>
