@@ -72,7 +72,7 @@ const Post = ({post, fetchAllPosts}) => {
       <ReactMarkdown className="post">{post.tweet}</ReactMarkdown>
       <div className="icon-container">
         <IconProvider />
-        <ReplyModal setCurrentReply={setCurrentReply} submitReply={submitReply} allReplies={allReplies} />
+        <ReplyModal post={post} setCurrentReply={setCurrentReply} submitReply={submitReply} allReplies={allReplies} />
         <div className="post-counters-outer">
           <Badge className="post-counters-inner" light small branded>{allReplies.length}</Badge>
         </div>
