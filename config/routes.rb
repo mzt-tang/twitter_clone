@@ -6,11 +6,10 @@ Rails.application.routes.draw do
           collection do
             delete 'unlike'
             get 'liked'
+            get 'postBelongsToUser'
           end
         end
-        resources :replies, only: [:index, :create, :show, :destroy] do
-          
-        end
+        resources :replies, only: [:index, :create, :show, :destroy]
       end
     end
   end

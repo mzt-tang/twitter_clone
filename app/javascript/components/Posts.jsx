@@ -13,9 +13,9 @@ const Posts = () => {
   const postMaxLength = 500; // Maximum length that a tweet can be
 
   const submitPost = async () => {
-    // const toast = new bootstrap.Toast(document.getElementById('postToast'));
     
-    // if (!checkPostPreconditions(toast)) return;
+    // No toast in optimal components to notify the user :(
+    if (!checkPostPreconditions()) return;
 
     await fetchWithHeaders(
       "/api/v2/posts",
@@ -26,26 +26,21 @@ const Posts = () => {
     document.getElementById('post').value = "";
     setCurrentPost("");
 
-    // setPostNotifToast("Tweeted!")
-    // toast.show()
-    
     fetchAllPosts();
   }
 
-  const checkPostPreconditions = (toast) => {
+  const checkPostPreconditions = () => {
     if (currentPost.length === 0) {
-      setPostNotifToast("Nothing to tweet!")
-      toast.show()
-      return false
+      setPostNotifToast("Nothing to tweet!");
+      return false;
     }
 
     if (currentPost.length > postMaxLength) {
-      setPostNotifToast("Tweet must be under 500 characters!")
-      toast.show()
-      return false
+      setPostNotifToast("Tweet must be under 500 characters!");
+      return false;
     }
 
-    return true
+    return true;
   }
 
   const fetchAllPosts = async () => {
@@ -62,13 +57,6 @@ const Posts = () => {
   }, []);
 
   return (
-
-    // Post tweet text area + button
-
-    // Tweets (with likes and replies)
-
-    // Toasts?
-
     <div className="container">
       <div className="text-area">
         <textarea placeholder="What's happening?" id="post" required onChange={(e) => setCurrentPost(e.target.value)} />
@@ -84,32 +72,6 @@ const Posts = () => {
         )}
       </div>
     </div>
-
-      // <div className="container">
-      //   <div className="row">
-      //     <div className="col d-grid">  
-      //       <div className="position-relative">
-      //         <textarea className="form-control" placeholder="What's happening?" id="post" style={{ resize: "none", height: "140px" }} required onChange={(e) => setCurrentPost(e.target.value)} />
-      //         <span className={`position-absolute badge rounded-pill ${(postMaxLength - currentPost.length < 0) ? "bg-danger" : "bg-secondary"}`} style={{ bottom: "8px", right: "16px" }}>
-      //           {postMaxLength - currentPost.length}
-      //         </span>
-      //       </div>
-      //       <button className="btn btn-primary" onClick={submitPost} >Tweet</button>
-      //     </div>
-      //   </div>
-
-      //   <div className="row list-group">
-      //     <ul>{allPosts.map((post) => <li className="list-group-item" key={post.id}><Post post={post} fetchAllPosts={fetchAllPosts} /></li>)}</ul>
-      //   </div>
-        
-      //   <div className="position-fixed top-0 end-0 p-3">
-      //     <div id="postToast" className="toast" role="alert" aria-live="assertive" aria-atomic="true">
-      //       <div className="toast-body">
-      //         {postNotifToast}
-      //       </div>
-      //     </div>
-      //   </div>
-      // </div>
   );
 };
 

@@ -17,6 +17,10 @@ const Post = ({post, fetchAllPosts}) => {
 
   const toggleLikePost = async () => {
 
+    if (await postBelongsToUser()) {
+      return;
+    }
+
     if (await alreadyLiked()) {
       await fetchWithHeaders(`/api/v2/posts/${post.id}/likes/unlike`, { method: 'DELETE' }).catch((e) => {alert(e.message)});
       setHasLiked(false);
@@ -38,7 +42,7 @@ const Post = ({post, fetchAllPosts}) => {
     });
   }
 
-  // Fetchs the posts
+  // Fetchs the posts on first render
   useEffect(() => {
     fetchAllReplies();
     alreadyLiked().then(liked => {
@@ -64,6 +68,15 @@ const Post = ({post, fetchAllPosts}) => {
       { method: 'GET' }
     ).catch((e) => {
       alert(e.message)
+    })
+  }
+
+  const postBelongsToUser = async () => {
+    return await fetchWithHeaders(
+      `/api/v2/posts/${post.id}/likes/postBelongsToUser`,
+      { method: 'GET'}
+    ).catch((e) => {
+      alert(e.message);
     })
   }
 
