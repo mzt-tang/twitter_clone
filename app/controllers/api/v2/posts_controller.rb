@@ -1,4 +1,6 @@
 class Api::V2::PostsController < ApplicationController
+  before_action :find_post, only: [:show, :destroy]
+
   def index
     posts = Post.all.order(created_at: :desc)
     render json: posts
@@ -14,15 +16,15 @@ class Api::V2::PostsController < ApplicationController
   end
 
   def show
-    if post
-      render json: post
+    if @post
+      render json: @post
     else
-      render json: post.errors.full_messages
+      render json: @post.errors.full_messages
     end
   end
 
   def destroy
-    post.destroy
+    @post.destroy
     render json: { message: 'Post deleted!' }
   end
 
@@ -32,7 +34,7 @@ class Api::V2::PostsController < ApplicationController
     params.require(:post).permit(:tweet)
   end
 
-  def post
+  def find_post
     @post ||= Post.find(params[:id])
   end
 end

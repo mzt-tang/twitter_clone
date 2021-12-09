@@ -10,11 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_30_203211) do
+ActiveRecord::Schema.define(version: 2021_12_09_225242) do
 
   create_table "likes", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "post_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_likes_on_post_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
@@ -28,16 +30,10 @@ ActiveRecord::Schema.define(version: 2021_11_30_203211) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
-  create_table "posts_tables", force: :cascade do |t|
-    t.text "tweet"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "replies", force: :cascade do |t|
+    t.text "comment"
     t.integer "user_id", null: false
     t.integer "post_id", null: false
-    t.text "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_replies_on_post_id"
@@ -53,9 +49,4 @@ ActiveRecord::Schema.define(version: 2021_11_30_203211) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "likes", "posts"
-  add_foreign_key "likes", "users"
-  add_foreign_key "posts", "users"
-  add_foreign_key "replies", "posts"
-  add_foreign_key "replies", "users"
 end
