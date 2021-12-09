@@ -12,9 +12,9 @@ class Api::V2::LikesController < ApplicationController
       render json: { error: 'user cannot like own post!'}, status: :unprocessable_entity and return
     end
 
-    @like = @post.likes.create(user_id: current_user.id)
+    @like = @post.likes.build(user_id: current_user.id)
 
-    if @like.valid?
+    if @like.save
       render json: @like
     else
       render json: { error: @like.errors.full_messages.to_sentence }, status: :unprocessable_entity

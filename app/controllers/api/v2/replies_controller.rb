@@ -8,9 +8,9 @@ class Api::V2::RepliesController < ApplicationController
   end
 
   def create
-    @reply = current_user.replies.create(reply_params)
+    @reply = current_user.replies.build(reply_params)
 
-    if @reply.valid?
+    if @reply.save
       render json: @reply
     else
       render json: { error: @reply.errors.full_messages.to_sentence }, status: :unprocessable_entity

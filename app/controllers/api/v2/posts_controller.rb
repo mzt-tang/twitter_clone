@@ -1,12 +1,11 @@
 class Api::V2::PostsController < ApplicationController
   def index
-    post = Post.all.order(created_at: :desc)
-    render json: post
-    # current_user.posts.order(created_at: :desc)
+    posts = Post.all.order(created_at: :desc)
+    render json: posts
   end
 
   def create
-    post = current_user.posts.create!(post_params);
+    post = current_user.posts.create!(post_params)
     if post
       render json: post
     else
