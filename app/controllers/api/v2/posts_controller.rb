@@ -7,11 +7,11 @@ class Api::V2::PostsController < ApplicationController
   end
 
   def create
-    post = current_user.posts.create!(post_params)
-    if post
-      render json: post
+    new_post = current_user.posts.build(post_params)
+    if new_post.save
+      render json: new_post
     else
-      render json: post.errors.full_messages
+      render json: new_post.errors.full_messages
     end
   end
 

@@ -33,7 +33,7 @@ class Api::V2::LikesController < ApplicationController
     render json: already_liked?
   end
 
-  def postBelongsToUser
+  def post_belongs_to_user
     if @post.user == current_user
       render json: true
     else

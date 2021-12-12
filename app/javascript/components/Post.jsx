@@ -10,7 +10,7 @@ import './post.scss';
  * @param {post} the post object, containing just a tweet for now.
  * @returns .
  */
-const Post = ({post, fetchAllPosts}) => {
+const Post = ({ post, fetchAllPosts }) => {
   const [allReplies, setAllReplies] = useState([]);
   const [currentReply, setCurrentReply] = useState('');
   const [hasLiked, setHasLiked] = useState();
@@ -22,11 +22,11 @@ const Post = ({post, fetchAllPosts}) => {
     }
 
     if (await alreadyLiked()) {
-      await fetchWithHeaders(`/api/v2/posts/${post.id}/likes/unlike`, { method: 'DELETE' }).catch((e) => {alert(e.message)});
+      await fetchWithHeaders(`/api/v2/posts/${post.id}/likes/unlike`, { method: 'DELETE' }).catch((e) => { alert(e.message) });
       setHasLiked(false);
     } else {
       // postLike = undefined if post belongs to current user.
-      const postLike = await fetchWithHeaders(`/api/v2/posts/${post.id}/likes`, { method: 'POST' }).catch((e) => {alert(e.message)});
+      const postLike = await fetchWithHeaders(`/api/v2/posts/${post.id}/likes`, { method: 'POST' }).catch((e) => { alert(e.message) });
       if (postLike !== undefined) {
         setHasLiked(true);
       }
@@ -36,10 +36,10 @@ const Post = ({post, fetchAllPosts}) => {
 
   const fetchAllReplies = async () => {
     await fetchWithHeaders(
-     `/api/v2/posts/${post.id}/replies`)
-   .then(response => {       
-     setAllReplies(response);
-    });
+      `/api/v2/posts/${post.id}/replies`)
+      .then(response => {
+        setAllReplies(response);
+      });
   }
 
   // Fetchs the posts on first render
@@ -53,12 +53,13 @@ const Post = ({post, fetchAllPosts}) => {
   const submitReply = async () => {
     await fetchWithHeaders(
       `/api/v2/posts/${post.id}/replies`,
-      { method: 'POST',
+      {
+        method: 'POST',
         body: JSON.stringify({ post_id: post.id, comment: currentReply })
-    })
+      })
 
     setCurrentReply("");
-    
+
     fetchAllReplies();
   }
 
@@ -73,8 +74,8 @@ const Post = ({post, fetchAllPosts}) => {
 
   const postBelongsToUser = async () => {
     return await fetchWithHeaders(
-      `/api/v2/posts/${post.id}/likes/postBelongsToUser`,
-      { method: 'GET'}
+      `/api/v2/posts/${post.id}/likes/post_belongs_to_user`,
+      { method: 'GET' }
     ).catch((e) => {
       alert(e.message);
     })
@@ -89,7 +90,7 @@ const Post = ({post, fetchAllPosts}) => {
         <div className="post-counters-outer">
           <Badge className="post-counters-inner" light small branded>{allReplies.length}</Badge>
         </div>
-        { hasLiked ? <Button primary icon="face/happy" onClick={toggleLikePost} extra-small /> : <Button toolbar icon="face/happy" onClick={toggleLikePost} extra-small />}
+        {hasLiked ? <Button primary icon="face/happy" onClick={toggleLikePost} extra-small /> : <Button toolbar icon="face/happy" onClick={toggleLikePost} extra-small />}
         <div className="post-counters-outer">
           <Badge className="post-counters-inner" light small branded>{post.likes_count}</Badge>
         </div>

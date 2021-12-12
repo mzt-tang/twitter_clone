@@ -13,15 +13,15 @@ const Posts = () => {
   const postMaxLength = 500; // Maximum length that a tweet can be
 
   const submitPost = async () => {
-    
+
     // No toast in optimal components to notify the user :(
     if (!checkPostPreconditions()) return;
 
     await fetchWithHeaders(
       "/api/v2/posts",
-      { method: 'POST',
-        body: JSON.stringify({ tweet: currentPost })
-    })
+      {
+        method: 'POST', body: JSON.stringify({ tweet: currentPost })
+      });
 
     document.getElementById('post').value = "";
     setCurrentPost("");
@@ -44,8 +44,8 @@ const Posts = () => {
   }
 
   const fetchAllPosts = async () => {
-      await fetchWithHeaders(
-        "/api/v2/posts")
+    await fetchWithHeaders(
+      "/api/v2/posts")
       .then(response => {
         setAllPosts(response);
       });
@@ -63,8 +63,8 @@ const Posts = () => {
       </div>
 
       <div className="tweet-action-button">
-        <Button text="Tweet" onClick={submitPost} primary extra-small/>
-      </div> 
+        <Button text="Tweet" onClick={submitPost} primary extra-small />
+      </div>
 
       <div className="posts">
         {allPosts.map((post) =>
