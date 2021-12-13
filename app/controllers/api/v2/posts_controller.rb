@@ -11,7 +11,7 @@ class Api::V2::PostsController < ApplicationController
     if new_post.save
       render json: new_post
     else
-      render json: new_post.errors.full_messages
+      render json: { error: new_post.errors.full_messages.to_sentence }, status: :unprocessable_entity
     end
   end
 
@@ -19,7 +19,7 @@ class Api::V2::PostsController < ApplicationController
     if @post
       render json: @post
     else
-      render json: { error: "post is nil" }
+      render json: { error: "post is nil" }, status: :unprocessable_entity # Should never reach here
     end
   end
 

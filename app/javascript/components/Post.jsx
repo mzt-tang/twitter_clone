@@ -26,7 +26,8 @@ const Post = ({ post, fetchAllPosts }) => {
       await fetchWithHeaders(`/api/v2/posts/${post.id}/likes/unlike`, { method: 'DELETE' }).catch((e) => { alert(e.message) });
       setHasLiked(false);
     } else {
-      const postLike = await fetchWithHeaders(`/api/v2/posts/${post.id}/likes`, { method: 'POST' }).catch((e) => { alert(e.message) });
+      await fetchWithHeaders(`/api/v2/posts/${post.id}/likes`, { method: 'POST' }).catch((e) => { alert(e.message) });
+      setHasLiked(true);
     }
     fetchAllPosts();
   }

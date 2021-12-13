@@ -21,7 +21,7 @@ class Api::V2::RepliesController < ApplicationController
     if @reply
       render json: @reply
     else
-      render json: { error: 'reply is nil'}
+      render json: { error: 'reply is nil'}, status: :unprocessable_entity # Should never reach here
     end
   end
 

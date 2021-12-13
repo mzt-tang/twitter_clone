@@ -7,14 +7,14 @@ class Api::V2::PostsControllerTest < ActionController::TestCase
     sign_in users(:user1)
   end
   
+  test "show all posts" do
+    get "index"
+    assert_response :success
+  end
+  
   test "create a basic post" do
     post "create",
       params: { post: { tweet: "can create" } }
-    assert_response :success
-  end
-
-  test "show all posts" do
-    get "index"
     assert_response :success
   end
   
@@ -34,6 +34,15 @@ class Api::V2::PostsControllerTest < ActionController::TestCase
     delete "destroy",
       params: { id: @post.id }
     assert_response :success
+  end
+
+  test "create a invalid 0 words post" do
+    post "create",
+      params: { post: { tweet: "" } }
+    assert_response :unprocessable_entity
+
+    invalid_post = @response.parsed_body
+    assert_equal "Tweet can't be blank", invalid_post["error"]
   end
 
 end
