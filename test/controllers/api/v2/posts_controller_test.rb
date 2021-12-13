@@ -19,12 +19,20 @@ class Api::V2::PostsControllerTest < ActionController::TestCase
   end
   
   test "show a post" do
-    post "create",
-      params: { post: { tweet: "create a post" } }
-    assert_response :success
+    @post = posts(:valid)
+    @post.save
 
     get "show",
-      params: { post_id: 1}
+      params: { id: @post.id }
+    assert_response :success
+  end
+
+  test "delete a post" do
+    @post = posts(:valid)
+    @post.save
+
+    delete "destroy",
+      params: { id: @post.id }
     assert_response :success
   end
 
