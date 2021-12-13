@@ -20,8 +20,9 @@ class Api::V2::RepliesController < ApplicationController
   def show
     if @reply
       render json: @reply
-      else
+    else
       render json: { error: 'reply is nil'}
+    end
   end
 
   private

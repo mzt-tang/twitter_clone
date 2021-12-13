@@ -6,7 +6,7 @@ import Replies from './Replies'
 
 import './replymodal.scss';
 
-const ReplyModal = ({post, setCurrentReply, submitReply, allReplies}) => {
+const ReplyModal = ({ post, setCurrentReply, submitReply, allReplies }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -18,14 +18,15 @@ const ReplyModal = ({post, setCurrentReply, submitReply, allReplies}) => {
 
   return (
     <>
-      <Button toolbar icon="action/comment" onClick={handleOpen} extra-small/>
+      <Button toolbar icon="action/comment" onClick={handleOpen} extra-small />
       <Modal
+        className="modal"
         open={open}
         onClose={handleClose}
         title="Comments"
       >
-        <Modal.Body className="modal-body">
-          <div className="modal-post">
+        <Modal.Body className="modal--body">
+          <div className="modal--post">
             <ReactMarkdown>{post.tweet}</ReactMarkdown>
           </div>
 
@@ -33,11 +34,11 @@ const ReplyModal = ({post, setCurrentReply, submitReply, allReplies}) => {
             <Replies allReplies={allReplies} />
           </div>
 
-          <div className="text-area">
+          <div>
             <textarea id="reply-text" placeholder="What are your thoughts?" required onChange={(e) => setCurrentReply(e.target.value)} />
           </div>
 
-          <div className="modal-action-buttons">
+          <div className="modal--action-buttons">
             <Button text="reply" primary extra-small onClick={postComment} />
             <Button text="close" secondary extra-small onClick={handleClose} />
           </div>

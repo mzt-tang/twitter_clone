@@ -83,16 +83,16 @@ const Post = ({ post, fetchAllPosts }) => {
 
   return (
     <div className="post-container">
-      <ReactMarkdown className="post">{post.tweet}</ReactMarkdown>
-      <div className="icon-container">
+      <ReactMarkdown className="post-container--post">{post.tweet}</ReactMarkdown>
+      <div className="likes-and-replies">
         <IconProvider />
         <ReplyModal post={post} setCurrentReply={setCurrentReply} submitReply={submitReply} allReplies={allReplies} />
-        <div className="post-counters-outer">
-          <Badge className="post-counters-inner" light small branded>{allReplies.length}</Badge>
+        <div className="likes-and-replies--reaction-counter-outer">
+          <Badge className="likes-and-replies--reaction-counter-inner" light small branded>{allReplies.length}</Badge>
         </div>
         {hasLiked ? <Button primary icon="face/happy" onClick={toggleLikePost} extra-small /> : <Button toolbar icon="face/happy" onClick={toggleLikePost} extra-small />}
-        <div className="post-counters-outer">
-          <Badge className="post-counters-inner" light small branded>{post.likes_count}</Badge>
+        <div className="likes-and-replies--reaction-counter-outer">
+          <Badge className="likes-and-replies--reaction-counter-inner" light small branded>{post.likes_count}</Badge>
         </div>
       </div>
     </div>

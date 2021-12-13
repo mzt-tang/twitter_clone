@@ -5,25 +5,26 @@
   border-bottom: 1px solid gray;
   padding-top: 5px;
   padding-bottom: 5px;
+
+  &--post {
+    position: relative;
+    top: 8px;
+  }
 }
 
-.post {
-  position: relative;
-  top: 8px;
-}
 
-.icon-container {
+.likes-and-replies {
   display: flex;
   text-align: center;
-}
 
-.post-counters-outer {
-  position: relative;
-  top: 50%;
-  margin-right: 5px;
-}
+  &--reaction-counter-outer {
+    position: relative;
+    top: 50%;
+    margin-right: 5px;
+  }
 
-.post-counters-inner {
-  position: relative;
-  bottom: 15px;
+  &--reaction-counter-inner {
+    position: relative;
+    bottom: 15px;
+  }
 }

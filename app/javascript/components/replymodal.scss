@@ -1,24 +1,25 @@
-.modal-body {
-  width: 80%;
-  margin: auto;
-}
+.modal {
+  &--body {
+    width: 80%;
+    margin: auto;
+  }
 
-.modal-post {
-  color: black;
-  border-bottom: 4px solid black;
-}
+  &--post {
+    color: black;
+    border-bottom: 4px solid black;
+  }
 
-.modal-action-buttons {
-  position: relative;
-  left: 5px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  gap: 10px;
-}
+  &--action-buttons {
+    position: relative;
+    left: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 10px;
+  }
 
-.text-area {
   textarea {
     resize: none;
+    width: 100%;
   }
 }

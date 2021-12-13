@@ -4,11 +4,11 @@ import Reply from './Reply';
 
 import './replies.scss';
 
-const Replies = ({allReplies}) => {
+const Replies = ({ allReplies }) => {
 
 
   return (
-    <ul className="reply-list">
+    <ul className="list-unstyled">
       {allReplies.map((reply) =>
         <li key={reply.id}>
           <Reply reply={reply} />
@@ -16,6 +16,6 @@ const Replies = ({allReplies}) => {
       )}
     </ul>
   );
- }
+}
 
- export default Replies;
+export default Replies;

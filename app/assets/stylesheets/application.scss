@@ -17,3 +17,9 @@
  // Custom bootstrap variables must be set or imported *before* bootstrap.
  //@import "bootstrap";
  @import "optimal-components";
+
+ .list-unstyled {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
