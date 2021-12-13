@@ -22,7 +22,11 @@ class Api::V2::LikesController < ApplicationController
   end
 
   def show
-    render json: @like
+    if @like
+      render json: @like
+    else
+      render json: { error: "post is nil" }
+    end
   end
 
   def unlike

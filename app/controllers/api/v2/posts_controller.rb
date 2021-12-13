@@ -19,7 +19,7 @@ class Api::V2::PostsController < ApplicationController
     if @post
       render json: @post
     else
-      render json: @post.errors.full_messages
+      render json: { error: "post is nil" }
     end
   end
 

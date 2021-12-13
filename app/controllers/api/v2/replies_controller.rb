@@ -18,7 +18,10 @@ class Api::V2::RepliesController < ApplicationController
   end
 
   def show
-    render json: @reply
+    if @reply
+      render json: @reply
+      else
+      render json: { error: }
   end
 
   private
