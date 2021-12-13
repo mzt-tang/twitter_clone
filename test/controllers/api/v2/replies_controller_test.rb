@@ -7,7 +7,15 @@ class Api::V2::RepliesControllerTest < ActionController::TestCase
     sign_in users(:user1)
   end
   
-  test "create a basic reply" do
+  test "show all replies" do
+    @post = posts(:valid)
+    @post.save
+
+    get "index", params: { post_id: @post.id}
+    assert_response :success
+  end
+
+  test "create and show a basic reply" do
     @post = posts(:valid)
     @post.save
 
@@ -16,6 +24,8 @@ class Api::V2::RepliesControllerTest < ActionController::TestCase
 
     reply = @response.parsed_body
     assert_equal "test comment", reply["comment"]
+
+    get "show", params: { post_id: @post.id, id: reply["id"] }
   end
 
   test "create a invalid reply" do
@@ -29,23 +39,4 @@ class Api::V2::RepliesControllerTest < ActionController::TestCase
     assert_equal "Comment can't be blank", reply["error"]
     
   end
-
-  test "show all replies" do
-    @post = posts(:valid)
-    @post.save
-
-    get "index"
-    assert_response :success
-  end
-  
-  # test "show a post" do
-  #   post "create",
-  #     params: { post: { tweet: "create a post" } }
-  #   assert_response :success
-
-  #   get "show",
-  #     params: { id: 1}
-  #   assert_response :success
-  # end
-
 end
