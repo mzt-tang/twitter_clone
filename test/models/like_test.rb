@@ -1,13 +1,18 @@
 require "test_helper"
 
-class PostTest < ActiveSupport::TestCase
+class LikeTest < ActiveSupport::TestCase
   def setup
     @post = posts(:valid)
   end
 
-  test 'valid post and save' do
+  test 'create a like' do
     assert @post.valid?
     assert @post.save
+
+    like = @post.likes.build(user_id: @post.user.id)
+
+    assert like.valid?
+    assert like.save
   end 
 
   test 'invalid without tweet' do
@@ -16,8 +21,4 @@ class PostTest < ActiveSupport::TestCase
     assert_not_nil @post.errors[:tweet], 'no validation error for tweet present'
   end
 
-  test 'should not save post without tweet' do
-    no_tweet = Post.new
-    assert_not no_tweet.save
-  end
 end

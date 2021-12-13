@@ -9,8 +9,8 @@ Rails.application.routes.draw do
             get 'post_belongs_to_user'
           end
         end
-        resources :replies, only: %i[index create show destroy]
       end
+      resources :replies, only: %i[index create show destroy]
     end
   end
 

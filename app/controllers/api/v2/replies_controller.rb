@@ -1,5 +1,5 @@
 class Api::V2::RepliesController < ApplicationController
-  before_action :find_post
+  before_action :find_post, only: [:index, :show]
   before_action :find_reply, only: [:show]
 
   def index
@@ -8,12 +8,12 @@ class Api::V2::RepliesController < ApplicationController
   end
 
   def create
-    @reply = current_user.replies.build(reply_params)
+    new_reply = current_user.replies.build(reply_params)
 
-    if @reply.save
-      render json: @reply
+    if new_reply.save
+      render json: new_reply
     else
-      render json: { error: @reply.errors.full_messages.to_sentence }, status: :unprocessable_entity
+      render json: { error: new_reply.errors.full_messages.to_sentence }, status: :unprocessable_entity
     end
   end
 

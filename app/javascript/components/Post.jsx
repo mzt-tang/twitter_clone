@@ -18,6 +18,7 @@ const Post = ({ post, fetchAllPosts }) => {
   const toggleLikePost = async () => {
 
     if (await postBelongsToUser()) {
+      setHasLiked(false);
       return;
     }
 
@@ -25,18 +26,14 @@ const Post = ({ post, fetchAllPosts }) => {
       await fetchWithHeaders(`/api/v2/posts/${post.id}/likes/unlike`, { method: 'DELETE' }).catch((e) => { alert(e.message) });
       setHasLiked(false);
     } else {
-      // postLike = undefined if post belongs to current user.
       const postLike = await fetchWithHeaders(`/api/v2/posts/${post.id}/likes`, { method: 'POST' }).catch((e) => { alert(e.message) });
-      if (postLike !== undefined) {
-        setHasLiked(true);
-      }
     }
     fetchAllPosts();
   }
 
   const fetchAllReplies = async () => {
     await fetchWithHeaders(
-      `/api/v2/posts/${post.id}/replies`)
+      `/api/v2/replies?post_id=${post.id}`)
       .then(response => {
         setAllReplies(response);
       });
@@ -52,7 +49,7 @@ const Post = ({ post, fetchAllPosts }) => {
 
   const submitReply = async () => {
     await fetchWithHeaders(
-      `/api/v2/posts/${post.id}/replies`,
+      `/api/v2/replies`,
       {
         method: 'POST',
         body: JSON.stringify({ post_id: post.id, comment: currentReply })
