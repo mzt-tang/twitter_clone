@@ -34,7 +34,7 @@ class Api::V2::PostsController < ApplicationController
     params.require(:post).permit(:tweet)
   end
 
-  def post
+  def find_post
     @post = Post.find(params[:id])
   end
 end
