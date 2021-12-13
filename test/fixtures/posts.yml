@@ -1,2 +1,3 @@
 valid:
+  user: user1
   tweet: "a valid post with a tweet!"
