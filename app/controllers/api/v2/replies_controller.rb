@@ -21,7 +21,7 @@ class Api::V2::RepliesController < ApplicationController
     if @reply
       render json: @reply
       else
-      render json: { error: }
+      render json: { error: 'reply is nil'}
   end
 
   private

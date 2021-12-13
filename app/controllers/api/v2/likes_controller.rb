@@ -25,7 +25,7 @@ class Api::V2::LikesController < ApplicationController
     if @like
       render json: @like
     else
-      render json: { error: "post is nil" }
+      render json: { error: "like is nil" }
     end
   end
 
