@@ -1,0 +1,27 @@
+.navbar {
+  justify-content: space-between;
+  padding: 10px 15px;
+}
+
+.display-flex {
+  display: flex;
+
+  &--wrap {
+    flex-wrap: wrap;
+  }
+}
+
+.display-grid {
+  display: flex;
+  grid-gap: 10%;
+
+  &--column {
+    grid-auto-flow: column;
+  }
+}
+
+.title {
+  font-size: 1.2rem;
+  position: relative;
+  bottom: 2px;
+}

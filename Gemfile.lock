@@ -154,6 +154,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    scavenger (0.3.0)
+      nokogiri (~> 1.10)
+      rails (>= 4.2)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -190,6 +193,13 @@ GEM
     websocket-extensions (0.1.5)
     zeitwerk (2.5.1)
 
+GEM
+  remote: https://rubygems.pkg.github.com/optimalworkshop/
+  specs:
+    optimal-components (0.13.12)
+      nokogiri (~> 1.10)
+      scavenger (~> 0.3.0)
+
 PLATFORMS
   x86_64-darwin-21
 
@@ -200,6 +210,7 @@ DEPENDENCIES
   devise
   jbuilder (~> 2.7)
   listen (~> 3.2)
+  optimal-components (~> 0.13.11)!
   puma (~> 4.1)
   rails (~> 6.0.4, >= 6.0.4.1)
   sass-rails (>= 6)

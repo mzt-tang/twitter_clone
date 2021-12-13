@@ -1,0 +1,30 @@
+.post-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid gray;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  &--post {
+    position: relative;
+    top: 8px;
+  }
+}
+
+
+.likes-and-replies {
+  display: flex;
+  text-align: center;
+
+  &--reaction-counter-outer {
+    position: relative;
+    top: 50%;
+    margin-right: 5px;
+  }
+
+  &--reaction-counter-inner {
+    position: relative;
+    bottom: 15px;
+  }
+}

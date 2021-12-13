@@ -1,15 +1,19 @@
 Rails.application.routes.draw do
   namespace :api do
-    namespace :v1 do
-      get 'posts/index'
-      post 'posts/create'
-      get '/show/:id', to: 'posts#show'
-      delete '/destroy/:id', to: 'posts#destroy'
+    namespace :v2 do
+      resources :posts, only: %i[index create show destroy] do
+        resources :likes, only: %i[index create show] do
+          collection do
+            delete 'unlike'
+            get 'liked'
+            get 'post_belongs_to_user'
+          end
+        end
+        resources :replies, only: %i[index create show destroy]
+      end
     end
   end
-  # root 'posts#index'
-  # get '/*path' => 'posts#index'
-  
+
   devise_for :users
 
   root 'authentication#show_user_content'

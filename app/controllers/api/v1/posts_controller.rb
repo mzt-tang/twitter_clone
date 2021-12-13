@@ -1,7 +1,7 @@
 class Api::V1::PostsController < ApplicationController
   def index
-    post = Post.all.order(created_at: :desc)
-    render json: post
+    posts = Post.all.order(created_at: :desc)
+    render json: posts
   end
 
   def create
@@ -22,7 +22,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def destroy
-    post&.destroy
+    post.destroy
     render json: { message: 'Post deleted!' }
   end
 

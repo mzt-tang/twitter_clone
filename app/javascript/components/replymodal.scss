@@ -1,0 +1,25 @@
+.modal {
+  &--body {
+    width: 80%;
+    margin: auto;
+  }
+
+  &--post {
+    color: black;
+    border-bottom: 4px solid black;
+  }
+
+  &--action-buttons {
+    position: relative;
+    left: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+
+  textarea {
+    resize: none;
+    width: 100%;
+  }
+}
