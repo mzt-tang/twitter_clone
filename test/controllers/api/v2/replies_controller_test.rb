@@ -6,6 +6,7 @@ class Api::V2::RepliesControllerTest < ActionController::TestCase
     setup do
       sign_in users(:user1)
       @post = posts(:valid)
+      Reply.destroy_all
     end
 
     test 'show all replies' do
@@ -42,7 +43,6 @@ class Api::V2::RepliesControllerTest < ActionController::TestCase
   end
 
   test 'index shows the correct number of replies' do
-    Reply.destroy_all
     @post.save
 
     5.times do

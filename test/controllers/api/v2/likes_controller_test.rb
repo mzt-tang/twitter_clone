@@ -9,6 +9,7 @@ module Api::V2
       @post = posts(:valid)
       @second_post = posts(:another_user_post)
       @user2 = users(:user2)
+      Like.destroy_all
     end
 
     test 'show all likes' do
@@ -19,7 +20,6 @@ module Api::V2
     end
 
     test 'create a like on a post' do
-      Like.destroy_all
       @second_post.save
       
       before_like_post_count = @second_post.likes.count
@@ -31,6 +31,39 @@ module Api::V2
 
       post_likes_difference = after_like_post_count - before_like_post_count
 
+      assert_equal 1, post_likes_difference
+    end
+
+    test 'create a invalid like (current user trying to like own post)' do
+      @post.save
+      before_like_post_count = @post.likes.count
+
+      post 'create', params: { post_id: @post.id }
+      assert_response :unprocessable_entity
+
+      failed_like = @response.parsed_body
+      assert_equal "User cannot like own post!", failed_like["error"]
+
+      after_like_post_count = @post.likes.count
+      post_likes_difference = after_like_post_count - before_like_post_count
+      assert_equal 0, post_likes_difference
+    end
+
+    test 'create a invalid like by trying to like the same post twice' do
+      @second_post.save
+      before_like_post_count = @second_post.likes.count
+
+      post 'create', params: { post_id: @second_post.id }
+      assert_response :success
+
+      post 'create', params: { post_id: @second_post.id }
+      assert_response :unprocessable_entity
+
+      failed_like = @response.parsed_body
+      assert_equal "User can only like a post once", failed_like["error"]
+
+      after_like_post_count = @second_post.likes.count
+      post_likes_difference = after_like_post_count - before_like_post_count
       assert_equal 1, post_likes_difference
     end
 

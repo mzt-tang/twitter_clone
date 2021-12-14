@@ -9,7 +9,7 @@ class Api::V2::LikesController < ApplicationController
 
   def create
     if @post.user == current_user
-      render json: { error: 'user cannot like own post!' }, status: :unprocessable_entity and return
+      render json: { error: 'User cannot like own post!' }, status: :unprocessable_entity and return
     end
 
     @like = @post.likes.build(user_id: current_user.id)
@@ -22,11 +22,7 @@ class Api::V2::LikesController < ApplicationController
   end
 
   def show
-    if @like
-      render json: @like
-    else
-      render json: { error: "like is nil" }
-    end
+    render json: @like
   end
 
   def unlike
