@@ -16,11 +16,7 @@ class Api::V2::PostsController < ApplicationController
   end
 
   def show
-    if @post
-      render json: @post
-    else
-      render json: { error: "post is nil" }, status: :unprocessable_entity # Should never reach here
-    end
+    render json: @post
   end
 
   def destroy
