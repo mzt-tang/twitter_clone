@@ -2,3 +2,8 @@ valid:
   id: 1
   user: user1
   tweet: "a valid post with a tweet!"
+
+another_user_post:
+  id: 2
+  user: user2
+  tweet: "Another valid tweet! By user2."
