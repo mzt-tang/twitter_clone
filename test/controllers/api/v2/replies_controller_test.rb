@@ -15,29 +15,7 @@ class Api::V2::RepliesControllerTest < ActionController::TestCase
       assert_response :success
     end
 
-    test 'create and show a basic reply' do
-      @post.save
-
-      post 'create', params: { reply: { post_id: @post.id, comment: 'test comment' } }
-      assert_response :success
-
-      reply = @response.parsed_body
-      assert_equal 'test comment', reply['comment']
-
-      get 'show',
-          params: { post_id: @post.id, id: reply['id'] }
-      assert_response :success
-
-      reply = @response.parsed_body
-      assert_equal 'test comment', reply['comment']
-    end
-
-    get "index", params: { post_id: @post.id}
-    assert_response :success
-  end
-
   test "create and show a basic reply" do
-    @post = posts(:valid)
     @post.save
 
     post "create", params: { reply: { post_id: @post.id, comment: "test comment" }}
@@ -47,6 +25,10 @@ class Api::V2::RepliesControllerTest < ActionController::TestCase
     assert_equal "test comment", reply["comment"]
 
     get "show", params: { post_id: @post.id, id: reply["id"] }
+    assert_response :success
+
+    reply = @response.parsed_body
+    assert_equal 'test comment', reply['comment']
   end
 
     test 'create a invalid reply' do
