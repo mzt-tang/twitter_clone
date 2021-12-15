@@ -19,7 +19,7 @@ module Api::V2
       assert_response :success
     end
 
-    test 'create a like on a post' do
+    test 'create and show a like on a post' do
       @second_post.save
       
       before_like_post_count = @second_post.likes.count
@@ -28,10 +28,16 @@ module Api::V2
       assert_response :success
 
       after_like_post_count = @second_post.likes.count
-
       post_likes_difference = after_like_post_count - before_like_post_count
-
       assert_equal 1, post_likes_difference
+
+      post_like_1 = @response.parsed_body
+
+      get 'show', params: { post_id: @second_post.id, id: post_like_1['id'] }
+      assert_response :success
+
+      post_like_2 = @response.parsed_body
+      assert_equal post_like_1['id'], post_like_2['id']
     end
 
     test 'create a invalid like (current user trying to like own post)' do
@@ -42,7 +48,7 @@ module Api::V2
       assert_response :unprocessable_entity
 
       failed_like = @response.parsed_body
-      assert_equal "User cannot like own post!", failed_like["error"]
+      assert_equal 'User cannot like own post!', failed_like['error']
 
       after_like_post_count = @post.likes.count
       post_likes_difference = after_like_post_count - before_like_post_count
@@ -60,7 +66,7 @@ module Api::V2
       assert_response :unprocessable_entity
 
       failed_like = @response.parsed_body
-      assert_equal "User can only like a post once", failed_like["error"]
+      assert_equal 'User can only like a post once', failed_like['error']
 
       after_like_post_count = @second_post.likes.count
       post_likes_difference = after_like_post_count - before_like_post_count
@@ -92,7 +98,7 @@ module Api::V2
     #   assert_response :unprocessable_entity
 
     #   reply = @response.parsed_body
-    #   assert_equal "Comment can't be blank", reply['error']
+    #   assert_equal 'Comment can't be blank', reply['error']
     # end
   end
 end
