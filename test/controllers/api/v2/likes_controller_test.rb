@@ -73,6 +73,10 @@ module Api::V2
       assert_equal 1, post_likes_difference
     end
 
+    test 'check post belongs to user api' do
+      
+    end
+
     # test 'index shows the correct number of replies' do
     #   Reply.destroy_all
 
