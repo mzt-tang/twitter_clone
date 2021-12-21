@@ -14,23 +14,18 @@ class PostsAndLikesTest < ActionDispatch::IntegrationTest
 
     fill_in 'post-text-area', with: 'something something something'
     click_on 'Tweet'
-    # assert
-
-    fill_in 'post-text-area', with: 'more stuff'
-    click_on 'Tweet'
-    # assert
-
-    fill_in 'post-text-area', with: 'a sentence for integration testing'
-    click_on 'Tweet'
-    # assert
+    assert page.has_content?('something something something')
 
     fill_in 'post-text-area', with: 'even more tweets'
     click_on 'Tweet'
-    # assert
+    assert page.has_content?('even more tweets')
 
     fill_in 'post-text-area', with: 'this is the last one'
     click_button 'Tweet'
-    # assert
+
+    assert page.has_content?('something something something')
+    assert page.has_content?('even more tweets')
+    assert page.has_content?('this is the last one')
   end
 
   test 'like and unlike a post' do
@@ -41,9 +36,9 @@ class PostsAndLikesTest < ActionDispatch::IntegrationTest
     click_on 'Log in'
 
     find_button('post-like-button', match: :first).click
-    # assert
-    find_button('post-like-button', match: :first).click
-    # assert
+    find_button('post-unlike-button', match: :first).click # asserts the first click has liked the post
+    find('.likes-and-replies', match: :first).find_button('post-like-button', match: :first).click # asserts the second click has unliked the post
+    find('.likes-and-replies', match: :first).find_button('post-unlike-button', match: :first).click # asserts the third click has liked the post again
   end
 
   test 'reply to a post' do
@@ -53,6 +48,11 @@ class PostsAndLikesTest < ActionDispatch::IntegrationTest
     fill_in 'user_password', with: 'password'
     click_on 'Log in'
 
-    
+    find_button('reply-modal-button', match: :first).click
+    assert page.has_content?('Comments')
+    fill_in 'reply-text', with: 'This is a test comment!'
+    click_button 'reply'
+    fill_in 'reply-text', with: ''
+    assert page.has_content?('This is a test comment')
   end
 end

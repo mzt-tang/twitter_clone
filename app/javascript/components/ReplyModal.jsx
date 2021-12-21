@@ -18,7 +18,7 @@ const ReplyModal = ({ post, setCurrentReply, submitReply, allReplies }) => {
 
   return (
     <>
-      <Button toolbar icon="action/comment" onClick={handleOpen} extra-small />
+      <Button id='reply-modal-button' toolbar icon="action/comment" onClick={handleOpen} extra-small />
       <Modal
         className="modal"
         open={open}

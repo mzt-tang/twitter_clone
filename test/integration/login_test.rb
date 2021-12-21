@@ -24,7 +24,7 @@ class LoginTest < ActionDispatch::IntegrationTest
     assert page.has_content?("Twitter Clone")
     
     # find('.likes-and-replies--reaction-counter-inner', match: first)
-    sleep(inspection_time=0.1)
+    sleep(inspection_time=0.5)
     click_link('Logout')
 
     assert has_current_path?('/users/sign_in')

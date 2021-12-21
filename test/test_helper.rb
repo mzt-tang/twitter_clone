@@ -13,7 +13,7 @@ require 'capybara/poltergeist'
 WEB_RESPONSE_MAX_WAITING_TIME = 120
 
 Capybara.register_driver :apparition do |app|
-  Capybara::Apparition::Driver.new(app, headless: false, timeout: WEB_RESPONSE_MAX_WAITING_TIME)
+  Capybara::Apparition::Driver.new(app, headless: true, timeout: WEB_RESPONSE_MAX_WAITING_TIME)
 end
 
 Capybara.javascript_driver = :apparition

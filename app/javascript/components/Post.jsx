@@ -95,7 +95,7 @@ const Post = ({ post, fetchAllPosts }) => {
         <div className="likes-and-replies--reaction-counter-outer">
           <Badge className="likes-and-replies--reaction-counter-inner" light small branded>{allReplies.length}</Badge>
         </div>
-        {hasLiked ? <Button id='post-like-button' primary icon="face/happy" onClick={toggleLikePost} extra-small />
+        {hasLiked ? <Button id='post-unlike-button' primary icon="face/happy" onClick={toggleLikePost} extra-small />
           : <Button id='post-like-button' toolbar icon="face/happy" onClick={toggleLikePost} extra-small />}
         <div className="likes-and-replies--reaction-counter-outer">
           <Badge className="likes-and-replies--reaction-counter-inner" light small branded>{post.likes_count}</Badge>
