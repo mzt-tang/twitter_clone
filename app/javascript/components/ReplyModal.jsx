@@ -13,7 +13,7 @@ const ReplyModal = ({ post, setCurrentReply, submitReply, allReplies }) => {
 
   const postComment = () => {
     submitReply();
-    document.getElementById("reply-text").value = "";
+    document.getElementById("reply-text").value = '';
   }
 
   return (

@@ -13,10 +13,10 @@ require 'capybara/poltergeist'
 WEB_RESPONSE_MAX_WAITING_TIME = 120
 
 Capybara.register_driver :apparition do |app|
-  Capybara::Apparition::Driver.new(app, headless: true, timeout: WEB_RESPONSE_MAX_WAITING_TIME)
+  Capybara::Apparition::Driver.new(app, headless: false, timeout: WEB_RESPONSE_MAX_WAITING_TIME)
 end
 
-Capybara.javascript_driver = :chrome
+Capybara.javascript_driver = :apparition
 
 Capybara.register_driver :apparition_ignore_js_errors do |app|
   Capybara::Apparition::Driver.new(app, js_errors: false, timeout: WEB_RESPONSE_MAX_WAITING_TIME)
@@ -40,8 +40,14 @@ class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
   include Warden::Test::Helpers
   
+  setup do
+    @allow_forgery_protection = ActionController::Base.allow_forgery_protection
+    ActionController::Base.allow_forgery_protection = true
+  end
+
   # Reset sessions and driver between tests
   teardown do
+    ActionController::Base.allow_forgery_protection = @allow_forgery_protection
     Capybara.reset_sessions!
     Capybara.current_driver = :apparition
   end

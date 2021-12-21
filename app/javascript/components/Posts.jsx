@@ -18,12 +18,12 @@ const Posts = () => {
     if (!checkPostPreconditions()) return;
 
     await fetchWithHeaders(
-      "/api/v2/posts",
+      '/api/v2/posts',
       {
         method: 'POST', body: JSON.stringify({ tweet: currentPost })
       });
 
-    document.getElementById('post').value = "";
+    document.getElementById('post-text-area').value = '';
     setCurrentPost("");
 
     fetchAllPosts();
@@ -45,7 +45,7 @@ const Posts = () => {
 
   const fetchAllPosts = async () => {
     await fetchWithHeaders(
-      "/api/v2/posts")
+      '/api/v2/posts')
       .then(response => {
         setAllPosts(response);
       });
@@ -59,7 +59,7 @@ const Posts = () => {
   return (
     <div className="container">
       <div className="text-area">
-        <textarea placeholder="What's happening?" id="post" required onChange={(e) => setCurrentPost(e.target.value)} />
+        <textarea placeholder="What's happening?" id="post-text-area" required onChange={(e) => setCurrentPost(e.target.value)} />
       </div>
 
       <div className="tweet-action-button">
