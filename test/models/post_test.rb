@@ -12,7 +12,7 @@ class PostTest < ActiveSupport::TestCase
 
   test 'invalid without tweet' do
     @post.tweet = nil
-    refute @post.valid?, 'saved post without a tweet'
+    assert_not @post.valid?, 'saved post without a tweet'
     assert_not_nil @post.errors[:tweet], 'no validation error for tweet present'
   end
 
@@ -22,15 +22,10 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test 'invalid for tweets over 500 characters' do
-    @post.tweet = "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789" + 
-    "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789" +
-    "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789" +
-    "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789" +
-    "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789"
-    
+    @post.tweet = 'a' * 500    
     assert @post.valid?
 
-    @post.tweet += "1"
+    @post.tweet += '1'
 
     assert_not @post.valid?
   end

@@ -52,10 +52,6 @@ class Api::V2::LikesController < ApplicationController
   end
 
   def check_user_post_like_valid?
-    if @post.user == current_user
-      return true
-    else
-      return false
-    end
+    @post.user == current_user
   end
 end

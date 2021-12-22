@@ -6,12 +6,9 @@ class ReplyTest < ActiveSupport::TestCase
   end
 
   test 'valid reply' do
-    assert @post.valid?
-    assert @post.save
-
-    @reply = @post.replies.build({user_id: @post.user.id, comment: "test comment"})
+    reply = @post.replies.build({user_id: @post.user.id, comment: 'test comment'})
     
-    assert @reply.valid?
-    assert @reply.save
+    assert reply.valid?
+    assert reply.save
   end
 end

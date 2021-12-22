@@ -1,0 +1,4 @@
+reply1:
+  user: user1
+  post: another_user_post
+  comment: "a valid reply on a post!"
