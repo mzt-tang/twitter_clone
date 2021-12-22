@@ -2,12 +2,11 @@ require 'test_helper'
 
 class PostsAndLikesTest < ActionDispatch::IntegrationTest
   setup do
-    Capybara.current_driver = Capybara.javascript_driver # :selenium by default
+    visit '/users/sign_in'
   end
 
   test 'create some posts' do
     user = users(:user1)
-    visit '/users/sign_in'
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: 'password'
     click_on 'Log in'
@@ -30,7 +29,6 @@ class PostsAndLikesTest < ActionDispatch::IntegrationTest
 
   test 'like and unlike a post' do
     user = users(:user2)
-    visit '/users/sign_in'
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: 'password'
     click_on 'Log in'
@@ -43,7 +41,6 @@ class PostsAndLikesTest < ActionDispatch::IntegrationTest
 
   test 'reply to a post' do
     user = users(:user1)
-    visit '/users/sign_in'
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: 'password'
     click_on 'Log in'

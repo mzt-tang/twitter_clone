@@ -43,6 +43,7 @@ class ActionDispatch::IntegrationTest
   setup do
     @allow_forgery_protection = ActionController::Base.allow_forgery_protection
     ActionController::Base.allow_forgery_protection = true
+    Capybara.current_driver = Capybara.javascript_driver # :selenium by default
   end
 
   # Reset sessions and driver between tests
@@ -50,6 +51,7 @@ class ActionDispatch::IntegrationTest
     ActionController::Base.allow_forgery_protection = @allow_forgery_protection
     Capybara.reset_sessions!
     Capybara.current_driver = :apparition
+    Capybara.current_driver = Capybara.javascript_driver # :selenium by default
   end
 end
 

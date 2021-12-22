@@ -2,7 +2,6 @@ require 'test_helper'
 
 class LoginTest < ActionDispatch::IntegrationTest
   setup do
-    Capybara.current_driver = Capybara.javascript_driver # :selenium by default
     visit '/users/sign_in'
   end
 
