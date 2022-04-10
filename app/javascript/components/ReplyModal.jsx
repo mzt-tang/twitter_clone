@@ -13,12 +13,12 @@ const ReplyModal = ({ post, setCurrentReply, submitReply, allReplies }) => {
 
   const postComment = () => {
     submitReply();
-    document.getElementById("reply-text").value = "";
+    document.getElementById("reply-text").value = '';
   }
 
   return (
     <>
-      <Button toolbar icon="action/comment" onClick={handleOpen} extra-small />
+      <Button id='reply-modal-button' toolbar icon="action/comment" onClick={handleOpen} extra-small />
       <Modal
         className="modal"
         open={open}

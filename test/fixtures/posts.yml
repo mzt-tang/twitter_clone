@@ -1,0 +1,7 @@
+valid:
+  user: user1
+  tweet: "a valid post with a tweet!"
+
+another_user_post:
+  user: user2
+  tweet: "Another valid tweet! By user2."

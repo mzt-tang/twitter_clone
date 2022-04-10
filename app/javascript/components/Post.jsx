@@ -14,10 +14,17 @@ const Post = ({ post, fetchAllPosts }) => {
   const [allReplies, setAllReplies] = useState([]);
   const [currentReply, setCurrentReply] = useState('');
   const [hasLiked, setHasLiked] = useState();
+  const [disabledButton, setDisabledButton] = useState(false);
 
   const toggleLikePost = async () => {
+    if (disabledButton) {
+      return;
+    } else {
+      setDisabledButton(true);
+    }
 
     if (await postBelongsToUser()) {
+      setHasLiked(false);
       return;
     }
 
@@ -25,18 +32,16 @@ const Post = ({ post, fetchAllPosts }) => {
       await fetchWithHeaders(`/api/v2/posts/${post.id}/likes/unlike`, { method: 'DELETE' }).catch((e) => { alert(e.message) });
       setHasLiked(false);
     } else {
-      // postLike = undefined if post belongs to current user.
-      const postLike = await fetchWithHeaders(`/api/v2/posts/${post.id}/likes`, { method: 'POST' }).catch((e) => { alert(e.message) });
-      if (postLike !== undefined) {
-        setHasLiked(true);
-      }
+      await fetchWithHeaders(`/api/v2/posts/${post.id}/likes`, { method: 'POST' }).catch((e) => { alert(e.message) });
+      setHasLiked(true);
     }
     fetchAllPosts();
+    setDisabledButton(false);
   }
 
   const fetchAllReplies = async () => {
     await fetchWithHeaders(
-      `/api/v2/posts/${post.id}/replies`)
+      `/api/v2/replies?post_id=${post.id}`)
       .then(response => {
         setAllReplies(response);
       });
@@ -52,7 +57,7 @@ const Post = ({ post, fetchAllPosts }) => {
 
   const submitReply = async () => {
     await fetchWithHeaders(
-      `/api/v2/posts/${post.id}/replies`,
+      `/api/v2/replies`,
       {
         method: 'POST',
         body: JSON.stringify({ post_id: post.id, comment: currentReply })
@@ -90,7 +95,8 @@ const Post = ({ post, fetchAllPosts }) => {
         <div className="likes-and-replies--reaction-counter-outer">
           <Badge className="likes-and-replies--reaction-counter-inner" light small branded>{allReplies.length}</Badge>
         </div>
-        {hasLiked ? <Button primary icon="face/happy" onClick={toggleLikePost} extra-small /> : <Button toolbar icon="face/happy" onClick={toggleLikePost} extra-small />}
+        {hasLiked ? <Button id='post-unlike-button' primary icon="face/happy" onClick={toggleLikePost} extra-small />
+          : <Button id='post-like-button' toolbar icon="face/happy" onClick={toggleLikePost} extra-small />}
         <div className="likes-and-replies--reaction-counter-outer">
           <Badge className="likes-and-replies--reaction-counter-inner" light small branded>{post.likes_count}</Badge>
         </div>

@@ -11,16 +11,12 @@ class Api::V2::PostsController < ApplicationController
     if new_post.save
       render json: new_post
     else
-      render json: new_post.errors.full_messages
+      render json: { error: new_post.errors.full_messages.to_sentence }, status: :unprocessable_entity
     end
   end
 
   def show
-    if @post
-      render json: @post
-    else
-      render json: { error: "post is nil" }
-    end
+    render json: @post
   end
 
   def destroy
@@ -35,6 +31,6 @@ class Api::V2::PostsController < ApplicationController
   end
 
   def find_post
-    @post ||= Post.find(params[:id])
+    @post = Post.find(params[:id])
   end
 end
